@@ -11,10 +11,10 @@ const MenuItem = ({ title, imageUrl, history, linkUrl, match }) => (
 		onClick={() => history.push(`${match.url}${linkUrl}`)}
 	>
 		{/* React can use inline-css but converts it to camelCase */}
-		{/* Dynamically render info from JSON data received from directory */}
 		<div
 			className="background-image"
 			style={{ backgroundImage: `url(${imageUrl})` }}
+			// React can use inline-css but converts it to camelCase
 		/>
 		<div className="content">
 			<h1 className="title">{title}</h1>
