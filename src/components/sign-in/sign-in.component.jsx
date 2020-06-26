@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
-import { signInWithGoogle } from "../../firebase/firebase.utils";
+import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
 import "./sign-in.styles.scss";
 
@@ -22,11 +22,20 @@ class SignIn extends Component {
 	}
 
 	// Custom handleSubmit function (called when button is clicked)
-	handleSubmit = (event) => {
+	handleSubmit = async (event) => {
 		// Override HTML default functions for custom one
 		event.preventDefault();
 
-		this.setState({ email: "", password: "" });
+		const { email, password } = this.state;
+
+		try {
+			// Create user given the email and password from form field
+			await auth.signInWithEmailAndPassword(email, password);
+			// Reset form field on App since successful sign in
+			this.setState({ email: "", password: "" });
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	/* Custom handleChange function (called when form fields change i.e.
@@ -69,6 +78,7 @@ class SignIn extends Component {
 						<CustomButton type="submit">Sign In</CustomButton>
 						{/* Using signInWithGoogle initialize in utils for OAuth */}
 						<CustomButton
+							type="button"
 							onClick={signInWithGoogle}
 							isGoogleSignIn
 						></CustomButton>
