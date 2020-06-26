@@ -1,6 +1,6 @@
 import React from "react";
 
-import CollectionPreview from "../../components/collection-preview/collection-preview.jsx";
+import CollectionPreview from "../../components/collection-preview/collection-preview";
 
 // Bring in JSON data for shop items
 import shopData from "../../data/shop-data.json";
