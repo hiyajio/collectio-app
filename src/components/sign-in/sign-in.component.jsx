@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
+import { signInWithGoogle } from "../../firebase/firebase.utils";
+
 import "./sign-in.styles.scss";
 
 // Component is needed since we need to take note of state
@@ -62,8 +64,15 @@ class SignIn extends Component {
 						label="password"
 						required
 					/>
-					{/* Using CustomButton component for more functionality */}
-					<CustomButton type="submit">Sign In</CustomButton>
+					<div className="buttons">
+						{/* Using CustomButton component for more functionality */}
+						<CustomButton type="submit">Sign In</CustomButton>
+						{/* Using signInWithGoogle initialize in utils for OAuth */}
+						<CustomButton
+							onClick={signInWithGoogle}
+							isGoogleSignIn
+						></CustomButton>
+					</div>
 				</form>
 			</div>
 		);
