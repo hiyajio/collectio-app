@@ -1,6 +1,6 @@
 import React from "react";
 
-import MenuItem from "../menu-item/menu-item.component.jsx";
+import MenuItem from "../menu-item/menu-item.component";
 // Bring in JSON data for menu items
 import directoryData from "../../data/directory.json";
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import CollectionItem from "../collection-item/collection-item.component.jsx";
+import CollectionItem from "../collection-item/collection-item.component";
 
 import "./collection-preview.styles.scss";
 
@@ -8,7 +8,7 @@ import "./collection-preview.styles.scss";
 const CollectionPreview = ({ title, items }) => (
 	<div className="collection-preview">
 		{/* With destructured props (and normal props), we can use JS
-            functions on them such as toUpperCase() */}
+        functions on them such as toUpperCase() */}
 		<h1 className="title">{title.toUpperCase()}</h1>
 		<div className="preview">
 			{/* Using ES6 filter to limit render by 4 since it's only a preview.
