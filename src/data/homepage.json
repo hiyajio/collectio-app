@@ -1,14 +1,14 @@
 [
 	{
-		"title": "premium items",
-		"imageUrl": "https://vignette.wikia.nocookie.net/marveldatabase/images/8/87/New_Mutants_Vol_1_98.jpg/revision/latest?cb=20140731070600",
+		"title": "PREMIUM ITEMS",
+		"imageUrl": "https://i.ibb.co/hBRGwxH/nm-98-f.jpg",
 		"id": 1,
-		"linkUrl": "shop/premium-items"
+		"linkUrl": "categories/premium-items"
 	},
 	{
-		"title": "regular items",
-		"imageUrl": "https://vignette.wikia.nocookie.net/marveldatabase/images/f/f8/Uncanny_X-Men_Annual_Vol_1_12.jpg/revision/latest/scale-to-width-down/1000?cb=20191211012559",
+		"title": "REGULAR ITEMS",
+		"imageUrl": "https://i.ibb.co/nbXgQ0h/xmewa-12.jpg",
 		"id": 2,
-		"linkUrl": "shop/regular-items"
+		"linkUrl": "categories/regular-items"
 	}
 ]
