@@ -1,8 +1,8 @@
 import React from "react";
 
-import MenuItem from "../menu-item/menu-item.component";
+import MenuItem from "../menu-item/menu-item.component.jsx";
 // Bring in JSON data for menu items
-import data from "../../data/homepage.json";
+import directoryData from "../../data/directory.json";
 
 import "./directory.styles.scss";
 
@@ -11,8 +11,8 @@ const Directory = () => (
 		{/* Using ES6 map in order to dynamically create multiple menu items
         using JSON data. Also using ES6 spread operator as syntactic sugar
         since other props needed are just their namesake (ex: title={title}) */}
-		{data.map(({ id, ...otherSectionProps }) => (
-			<MenuItem key={id} {...otherSectionProps} />
+		{directoryData.map(({ id, ...otherDirectoryDataProps }) => (
+			<MenuItem key={id} {...otherDirectoryDataProps} />
 		))}
 	</div>
 );
