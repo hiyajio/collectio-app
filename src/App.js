@@ -70,8 +70,8 @@ class App extends Component {
 				and will stay regardless of which page is chosen*/}
 				<Header currentUser={this.state.currentUser} />
 				{/* Switch is its namesake. Only the first one we find that matches path
-				will be rendered. Think of it as a switch case or an if statement with
-				continue*/}
+				will be rendered. Think of it as a switch case or chained if-else
+				statements*/}
 				<Switch>
 					<Route exact path="/" component={HomePage} />
 					<Route path="/shop" component={ShopPage} />
