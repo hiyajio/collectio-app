@@ -3,16 +3,18 @@ import React from "react";
 // Needed for redux state management
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { withRouter } from "react-router-dom";
 
 import CustomButton from "../custom-button/custom-button.component";
 import CartItem from "../cart-item/cart-item.component";
 import { selectCartItems } from "../../redux/cart/cart.selectors";
-import { withRouter } from "react-router-dom";
+import { toggleCartHidden } from "../../redux/cart/cart.actions";
 
 import "./cart-dropdown.styles.scss";
 
 // Destructuring 'prop' into their specific counterpart for syntactic sugar
-const CartDropdown = ({ cartItems, history }) => (
+// We gain access to dispatch since connect auto passes it if no 2nd arg is given
+const CartDropdown = ({ cartItems, history, dispatch }) => (
 	<div className="cart-dropdown">
 		{/* Map through all current items in cart */}
 		<div className="cart-items">
@@ -25,7 +27,13 @@ const CartDropdown = ({ cartItems, history }) => (
 				<span className="empty-message">Your cart is empty</span>
 			)}
 		</div>
-		<CustomButton onClick={() => history.push("/checkout")}>
+		{/* Go to Checkout Page on click */}
+		<CustomButton
+			onClick={() => {
+				history.push("/checkout");
+				dispatch(toggleCartHidden());
+			}}
+		>
 			CHECKOUT
 		</CustomButton>
 	</div>
@@ -37,5 +45,6 @@ const mapStateToProps = createStructuredSelector({
 	cartItems: selectCartItems,
 });
 
+// HOCs work starting from inside. We need to route the connected component
 // Pass it again since one-way data flow
 export default withRouter(connect(mapStateToProps)(CartDropdown));
