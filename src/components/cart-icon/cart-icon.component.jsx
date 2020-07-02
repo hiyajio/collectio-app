@@ -1,8 +1,10 @@
 import React from "react";
 
+// Needed for redux state management
 import { connect } from "react-redux";
 
 import { toggleCartHidden } from "../../redux/cart/cart.actions";
+import { selectCartItemsCount } from "../../redux/cart/cart.selectors";
 
 // Syntax for using SVG as component in react
 import { ReactComponent as ShoppingIcon } from "../../assets/shopping-bag.svg";
@@ -19,15 +21,10 @@ const CartIcon = ({ toggleCartHidden, itemCount }) => (
 	</div>
 );
 
-// Gain access to cartItems state
-// Nested destructuring for more syntactic sugar
-const mapStateToProps = ({ cart: { cartItems } }) => ({
+// Using Selector here for memoized reducer
+const mapStateToProps = (state) => ({
 	// Calculate the total number of items in the cart to display as number
-	itemCount: cartItems.reduce(
-		(accumulatedQuantity, cartItem) =>
-			accumulatedQuantity + cartItem.quantity,
-		0
-	),
+	itemCount: selectCartItemsCount(state),
 });
 
 // Update and dispatch global redux reducer to all listeners
