@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 // Needed for routing
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 // Needed for redux state management
 import { connect } from "react-redux";
@@ -36,7 +36,7 @@ class App extends Component {
 
 				/* Backend to frontend transfer: Using the current state or
 				"Snapshot" of that user, we simple set the state of
-				currentUser to it. */
+				currentUser to it */
 				userRef.onSnapshot((snapShot) => {
 					// Update current state of app as well
 					setCurrentUser({
@@ -62,25 +62,40 @@ class App extends Component {
 		return (
 			<div>
 				{/* By placing Header above Switch, this ensure it is only rendered once
-				and will stay regardless of which page is chosen*/}
+				and will stay regardless of which page is chosen */}
 				<Header />
 				{/* Switch is its namesake. Only the first one we find that matches path
 				will be rendered. Think of it as a switch case or chained if-else
-				statements*/}
+				statements */}
 				<Switch>
 					<Route exact path="/" component={HomePage} />
 					<Route path="/shop" component={ShopPage} />
-					<Route path="/signin" component={SignInSignUpPage} />
+					<Route
+						exact
+						path="/signin"
+						/* If user logged in already, deny access to sign in page.
+						Also, redirect to home page if once signed in */
+						render={() =>
+							this.props.currentUser ? (
+								<Redirect to="/" />
+							) : (
+								<SignInSignUpPage />
+							)
+						}
+					/>
 				</Switch>
 			</div>
 		);
 	}
 }
 
-// Listen for local changes and dispath global redux reducer to all listeners
+// Gain access to currentUser state
+const mapStateToProps = ({ user }) => ({ currentUser: user.currentUser });
+
+// Update and dispatch global redux reducer to all listeners
 const mapDispatchToProps = (dispatch) => ({
 	setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
 // HOC to pass setCurrentUser state to everyone that needs to listen to updates
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

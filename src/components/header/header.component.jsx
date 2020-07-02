@@ -44,7 +44,7 @@ const Header = ({ currentUser }) => (
 	</div>
 );
 
-// Set local state of currentUser to global redux state (making use of it in header)
+// Gain access to currentUser state
 const mapStateToProps = (state) => ({ currentUser: state.user.currentUser });
 
 // Pass it again since one-way data flow
