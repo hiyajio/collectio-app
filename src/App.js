@@ -13,6 +13,7 @@ import Header from "./components/header/header.component";
 import HomePage from "./pages/homepage/homepage.page";
 import ShopPage from "./pages/shop/shop.page";
 import SignInSignUpPage from "./pages/sign-in-sign-up/sign-in-sign-up.page";
+import CheckoutPage from "./pages/checkout/checkout.page";
 
 // Bring in setCurrentUser action
 import { setCurrentUser } from "./redux/user/user.actions";
@@ -72,6 +73,7 @@ class App extends Component {
 				<Switch>
 					<Route exact path="/" component={HomePage} />
 					<Route path="/shop" component={ShopPage} />
+					<Route exact path="/checkout" component={CheckoutPage} />
 					<Route
 						exact
 						path="/signin"
