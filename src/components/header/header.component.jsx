@@ -7,15 +7,15 @@ import { connect } from "react-redux";
 
 import { auth } from "../../firebase/firebase.utils";
 
-import CartIcon from "../cart-icon/cart-icon.component";
-import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 // Syntax for using SVG as component in react
 import { ReactComponent as Logo } from "../../assets/logo.svg";
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
 import "./header.styles.scss";
 
 // Destructuring 'prop' into their specific counterparts for syntactic sugar
-const Header = ({ currentUser }) => (
+const Header = ({ currentUser, hidden }) => (
 	<div className="header">
 		<Link className="logo-container" to="/">
 			{/* Use the custom React Component for SVG imports */}
@@ -43,12 +43,16 @@ const Header = ({ currentUser }) => (
 			)}
 			<CartIcon />
 		</div>
-		<CartDropdown />
+		{hidden ? null : <CartDropdown />}
 	</div>
 );
 
 // Gain access to currentUser state
-const mapStateToProps = (state) => ({ currentUser: state.user.currentUser });
+// Nested destructuring for more syntactic sugar
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+	currentUser,
+	hidden,
+});
 
 // Pass it again since one-way data flow
 export default connect(mapStateToProps)(Header);
