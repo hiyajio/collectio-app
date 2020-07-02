@@ -14,6 +14,8 @@
 	border: none;
 	cursor: pointer;
 	border-radius: 3px;
+	display: flex;
+	justify-content: center;
 
 	&:hover {
 		background-color: white;
@@ -36,6 +38,18 @@
 			color: #d37877;
 			border: none;
 			background-image: url("../../assets/googleSignInFocus.png");
+		}
+	}
+
+	&.inverted {
+		background-color: white;
+		color: #d37877;
+		border: 1px solid #d37877;
+
+		&:hover {
+			background-color: #d37877;
+			color: white;
+			border: none;
 		}
 	}
 }
