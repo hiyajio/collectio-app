@@ -19,7 +19,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
 		case CartActionTypes.ADD_ITEM:
 			return {
 				...state,
-				// spread operator to keep previous items + append to end new item
+				// use utility function
 				cartItems: addItemToCart(state.cartItems, action.payload),
 			};
 		default:
