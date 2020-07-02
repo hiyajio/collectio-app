@@ -1,5 +1,6 @@
 import { CartActionTypes } from "./cart.types";
 import { addItemToCart } from "./cart.utils";
+import { removeItemFromCart } from "./cart.utils";
 
 // Initial state needed since we don't want dropdown showing to start
 const INITIAL_STATE = {
@@ -22,12 +23,18 @@ const cartReducer = (state = INITIAL_STATE, action) => {
 				// Use utility function
 				cartItems: addItemToCart(state.cartItems, action.payload),
 			};
+		case CartActionTypes.REMOVE_ITEM:
+			return {
+				...state,
+				// Use utility function
+				cartItems: removeItemFromCart(state.cartItems, action.payload),
+			};
 		case CartActionTypes.CLEAR_ITEM_FROM_CART:
 			return {
 				...state,
 				// Filter returns new array of variables that evaluated to true
 				cartItems: state.cartItems.filter(
-					// If it's not the item we want to take out, keep it as cart item
+					// If it's not the item we want to remove, keep it as cart item
 					(cartItem) => cartItem.id !== action.payload.id
 				),
 			};
