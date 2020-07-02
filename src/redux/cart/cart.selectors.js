@@ -15,9 +15,10 @@ export const selectCartItems = createSelector(
 
 /* Using selectors essentially caches it so only when changes are detected to the
 specific action-reducer combo does it actually rerender (memoized reducer) */
+// Selector for getting total quantity of cart
 export const selectCartItemsCount = createSelector(
 	[selectCartItems],
-	// Calculate the total number of items in the cart to display as number
+	// Calculate the total number of items in the cart to display on icon
 	(cartItems) =>
 		cartItems.reduce(
 			(accumulatedQuantity, cartItem) =>
@@ -30,4 +31,16 @@ export const selectCartItemsCount = createSelector(
 export const selectCartHidden = createSelector(
 	[selectCart],
 	(cart) => cart.hidden
+);
+
+// Selector for getting total price of cart
+export const selectCartTotal = createSelector(
+	[selectCartItems],
+	// Calculate the total price of items in the cart to display
+	(cartItems) =>
+		cartItems.reduce(
+			(accumulatedQuantity, cartItem) =>
+				accumulatedQuantity + cartItem.quantity * cartItem.price,
+			0
+		)
 );
