@@ -97,5 +97,5 @@ const mapDispatchToProps = (dispatch) => ({
 	setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
-// HOC to pass setCurrentUser state to everyone that needs to listen to updates
+// Pass it again since one-way data flow
 export default connect(mapStateToProps, mapDispatchToProps)(App);
