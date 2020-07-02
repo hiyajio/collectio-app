@@ -25,3 +25,9 @@ export const selectCartItemsCount = createSelector(
 			0
 		)
 );
+
+// Selector for getting only cart.hidden state
+export const selectCartHidden = createSelector(
+	[selectCart],
+	(cart) => cart.hidden
+);

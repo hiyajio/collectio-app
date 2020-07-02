@@ -2,6 +2,7 @@ import React from "react";
 
 // Needed for redux state management
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import CustomButton from "../custom-button/custom-button.component";
 import CartItem from "../cart-item/cart-item.component";
@@ -23,8 +24,10 @@ const CartDropdown = ({ cartItems }) => (
 );
 
 // Gain access to cartItems state
-// Nested destructuring for more syntactic sugar
-const mapStateToProps = (state) => ({ cartItems: selectCartItems(state) });
+// Syntactic sugar for Selectors as no need to explicitly type passing of state
+const mapStateToProps = createStructuredSelector({
+	cartItems: selectCartItems,
+});
 
 // Pass it again since one-way data flow
 export default connect(mapStateToProps)(CartDropdown);

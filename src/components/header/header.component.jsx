@@ -4,6 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 // Needed for redux state management
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import { auth } from "../../firebase/firebase.utils";
 
@@ -11,6 +12,8 @@ import { auth } from "../../firebase/firebase.utils";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
+import { selectCartHidden } from "../../redux/cart/cart.selectors";
+import { selectCurrentUser } from "../../redux/user/user.selectors";
 
 import "./header.styles.scss";
 
@@ -48,11 +51,11 @@ const Header = ({ currentUser, hidden }) => (
 	</div>
 );
 
-// Gain access to currentUser state
-// Nested destructuring for more syntactic sugar
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
-	currentUser,
-	hidden,
+// Gain access to currentUser and hidden state
+// Syntactic sugar for Selectors as no need to explicitly type passing of state
+const mapStateToProps = createStructuredSelector({
+	currentUser: selectCurrentUser,
+	hidden: selectCartHidden,
 });
 
 // Pass it again since one-way data flow

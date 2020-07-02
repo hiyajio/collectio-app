@@ -2,6 +2,7 @@ import React from "react";
 
 // Needed for redux state management
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import { toggleCartHidden } from "../../redux/cart/cart.actions";
 import { selectCartItemsCount } from "../../redux/cart/cart.selectors";
@@ -21,10 +22,11 @@ const CartIcon = ({ toggleCartHidden, itemCount }) => (
 	</div>
 );
 
-// Using Selector here for memoized reducer
-const mapStateToProps = (state) => ({
+// Gain access to itemCount state
+// Syntactic sugar for Selectors as no need to explicitly type passing of state
+const mapStateToProps = createStructuredSelector({
 	// Calculate the total number of items in the cart to display as number
-	itemCount: selectCartItemsCount(state),
+	itemCount: selectCartItemsCount,
 });
 
 // Update and dispatch global redux reducer to all listeners

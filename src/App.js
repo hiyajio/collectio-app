@@ -5,6 +5,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 // Needed for redux state management
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import "./App.css";
 
@@ -15,6 +16,7 @@ import SignInSignUpPage from "./pages/sign-in-sign-up/sign-in-sign-up.page";
 
 // Bring in setCurrentUser action
 import { setCurrentUser } from "./redux/user/user.actions";
+import { selectCurrentUser } from "./redux/user/user.selectors";
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
@@ -90,7 +92,10 @@ class App extends Component {
 }
 
 // Gain access to currentUser state
-const mapStateToProps = ({ user }) => ({ currentUser: user.currentUser });
+// Syntactic sugar for Selectors as no need to explicitly type passing of state
+const mapStateToProps = createStructuredSelector({
+	currentUser: selectCurrentUser,
+});
 
 // Update and dispatch global redux reducer to all listeners
 const mapDispatchToProps = (dispatch) => ({
