@@ -1,4 +1,5 @@
 import { CartActionTypes } from "./cart.types";
+import { addItemToCart } from "./cart.utils";
 
 // Initial state needed since we don't want dropdown showing to start
 const INITIAL_STATE = {
@@ -19,7 +20,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				// spread operator to keep previous items + append to end new item
-				cartItems: [...state.cartItems, action.payload],
+				cartItems: addItemToCart(state.cartItems, action.payload),
 			};
 		default:
 			return state;
