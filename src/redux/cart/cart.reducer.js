@@ -13,14 +13,23 @@ const cartReducer = (state = INITIAL_STATE, action) => {
 		case CartActionTypes.TOGGLE_CART_HIDDEN:
 			return {
 				...state,
-				// simple toggle functionality using '!'
+				// Simple toggle functionality using '!'
 				hidden: !state.hidden,
 			};
 		case CartActionTypes.ADD_ITEM:
 			return {
 				...state,
-				// use utility function
+				// Use utility function
 				cartItems: addItemToCart(state.cartItems, action.payload),
+			};
+		case CartActionTypes.CLEAR_ITEM_FROM_CART:
+			return {
+				...state,
+				// Filter returns new array of variables that evaluated to true
+				cartItems: state.cartItems.filter(
+					// If it's not the item we want to take out, keep it as cart item
+					(cartItem) => cartItem.id !== action.payload.id
+				),
 			};
 		default:
 			return state;

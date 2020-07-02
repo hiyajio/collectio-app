@@ -10,6 +10,7 @@ import "./collection-item.styles.scss";
 
 // Destructuring 'prop' into their specific counterparts for syntactic sugar
 const CollectionItem = ({ item, addItem }) => {
+	// Further destructuring to gain access to specific props
 	const { name, price, imageUrl } = item;
 	return (
 		<div className="collection-item">
@@ -22,6 +23,7 @@ const CollectionItem = ({ item, addItem }) => {
 				<span className="name">{name}</span>
 				<span className="price">${price}</span>
 			</div>
+			{/* Add item to cart when button is clicked */}
 			<CustomButton onClick={() => addItem(item)} inverted>
 				Add to cart
 			</CustomButton>
