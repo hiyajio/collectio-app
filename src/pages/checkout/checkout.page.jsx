@@ -9,8 +9,11 @@ import {
 	selectCartTotal,
 } from "../../redux/cart/cart.selectors";
 
+import CheckoutItem from "../../components/checkout-item/checkout-item.component";
+
 import "./checkout.styles.scss";
 
+// Destructuring 'prop' into their specific counterpart for syntactic sugar
 const CheckoutPage = ({ cartItems, total }) => (
 	<div className="checkout-page">
 		<div className="checkout-header">
@@ -31,9 +34,11 @@ const CheckoutPage = ({ cartItems, total }) => (
 			</div>
 		</div>
 		{/* Map through and display items in cart */}
-		{cartItems.map((cartItem) => cartItem.name)}
+		{cartItems.map((cartItem) => (
+			<CheckoutItem key={cartItem.id} cartItem={cartItem} />
+		))}
 		<div className="total">
-			<span>TOTAL: ${total}</span>
+			<span>Total: ${total}</span>
 		</div>
 	</div>
 );
