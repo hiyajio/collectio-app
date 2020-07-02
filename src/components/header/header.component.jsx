@@ -1,8 +1,12 @@
 import React from "react";
+
 // Needed for routing
 import { Link } from "react-router-dom";
 
 import { auth } from "../../firebase/firebase.utils";
+
+// Needed for redux state management
+import { connect } from "react-redux";
 
 // Syntax for using SVG as component in react
 import { ReactComponent as Logo } from "../../assets/logo.svg";
@@ -40,4 +44,8 @@ const Header = ({ currentUser }) => (
 	</div>
 );
 
-export default Header;
+// Set local state of currentUser to global redux state (making use of it in header)
+const mapStateToProps = (state) => ({ currentUser: state.user.currentUser });
+
+// Pass it again since one-way data flow
+export default connect(mapStateToProps)(Header);
