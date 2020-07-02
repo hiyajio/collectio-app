@@ -2,12 +2,13 @@ import React from "react";
 
 // Needed for routing
 import { Link } from "react-router-dom";
-
-import { auth } from "../../firebase/firebase.utils";
-
 // Needed for redux state management
 import { connect } from "react-redux";
 
+import { auth } from "../../firebase/firebase.utils";
+
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 // Syntax for using SVG as component in react
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 
@@ -40,7 +41,9 @@ const Header = ({ currentUser }) => (
 					SIGN IN
 				</Link>
 			)}
+			<CartIcon />
 		</div>
+		<CartDropdown />
 	</div>
 );
 
