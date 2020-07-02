@@ -1,5 +1,6 @@
 import React from "react";
 
+// Needed for redux state management
 import { connect } from "react-redux";
 
 import CustomButton from "../custom-button/custom-button.component";
@@ -28,8 +29,10 @@ const CollectionItem = ({ item, addItem }) => {
 	);
 };
 
+// Update and dispatch global redux reducer to all listeners
 const mapDispatchToProps = (dispatch) => ({
 	addItem: (item) => dispatch(addItem(item)),
 });
 
+// Pass it again since one-way data flow
 export default connect(null, mapDispatchToProps)(CollectionItem);

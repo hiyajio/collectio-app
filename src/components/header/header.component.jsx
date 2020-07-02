@@ -43,6 +43,7 @@ const Header = ({ currentUser, hidden }) => (
 			)}
 			<CartIcon />
 		</div>
+		{/* Show dropdown based on state of hidden property */}
 		{hidden ? null : <CartDropdown />}
 	</div>
 );
