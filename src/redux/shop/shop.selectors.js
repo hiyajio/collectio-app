@@ -4,6 +4,9 @@ for the specific action-reducer combo, they still rerender since they're
 sharing the same stream of data */
 import { createSelector } from "reselect";
 
+// Needed to memoize selectCollection function
+import memoize from "lodash.memoize";
+
 /* Needed since router gives us string but data gives us number. Simply assign
 the respective number to the route */
 const COLLECTION_ID_MAP = {
@@ -21,12 +24,16 @@ export const selectCollections = createSelector(
 	(shop) => shop.collections
 );
 
+/* Needed third-party dependency to memoize since collectionUrlParam is dynamic
+argument. Memoize optimized this function so if the same url is used, we don't
+have to render it again (i.e. going from /premium to /premium) */
 // Selector for finding only the matching collection.id state
-export const selectCollection = (collectionUrlParam) =>
+export const selectCollection = memoize((collectionUrlParam) =>
 	createSelector([selectCollections], (collections) =>
 		collections.find(
 			(collection) =>
 				// Find matching ID based on assigned mapping
 				collection.id === COLLECTION_ID_MAP[collectionUrlParam]
 		)
-	);
+	)
+);
