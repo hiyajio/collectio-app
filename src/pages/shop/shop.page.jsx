@@ -1,18 +1,24 @@
 import React from "react";
 
-import CollectionPreview from "../../components/collection-preview/collection-preview";
+// Needed for routing
+import { Route } from "react-router-dom";
 
-// Bring in JSON data for shop items
-import shopData from "../../data/shop-data.json";
+// Bring in JSON data for menu items (Deprecated => moved to redux store)
+// import shopData from "../../data/shop-data.json";
 
-const ShopPage = () => (
+import CollectionsOverview from "../../components/collections-overview/collections-overview.component";
+import CollectionPage from "../collection/collection.page";
+
+// Destructuring 'prop' into their specific counterpart for syntactic sugar
+// Gain access to match from react-router-dom since nested route
+const ShopPage = ({ match }) => (
 	<div className="shop-page">
-		{/* Using ES6 map in order to dynamically create multiple preview items
-        using JSON data. Also using ES6 spread operator as syntactic sugar
-        since other props needed are just their namesake (ex: title={title}) */}
-		{shopData.map(({ id, ...otherShopDataProps }) => (
-			<CollectionPreview key={id} {...otherShopDataProps} />
-		))}
+		<Route exact path={`${match.path}`} component={CollectionsOverview} />
+		{/* Dynamic nested route. Displays page depending on specific collection */}
+		<Route
+			path={`${match.path}/:collectionId`}
+			component={CollectionPage}
+		/>
 	</div>
 );
 

@@ -7,17 +7,25 @@ import { BrowserRouter } from "react-router-dom";
 // Needed for redux state management
 import { Provider } from "react-redux";
 
+// Needed for persisting store and caching it on local storage
+import { PersistGate } from "redux-persist/integration/react";
+
 import "./index.css";
 import App from "./App";
 
-import store from "./redux/store";
+import { store, persistor } from "./redux/store";
 
 ReactDOM.render(
 	// Wrap App to make use of store for state management
 	<Provider store={store}>
 		{/* Wrap App to make use of routing */}
 		<BrowserRouter>
-			<App />
+			{/* Wrap App to make use of persisting, essentially the store given
+			to it at top level from Provider gets rehydrated by this PersistGate
+			to cache the cart */}
+			<PersistGate persistor={persistor}>
+				<App />
+			</PersistGate>
 		</BrowserRouter>
 	</Provider>,
 	document.getElementById("root")

@@ -10,6 +10,7 @@ import {
 } from "../../redux/cart/cart.selectors";
 
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
+import StripeCheckoutButton from "../../components/stripe-button/stripe-button.component";
 
 import "./checkout.styles.scss";
 
@@ -37,9 +38,16 @@ const CheckoutPage = ({ cartItems, total }) => (
 		{cartItems.map((cartItem) => (
 			<CheckoutItem key={cartItem.id} cartItem={cartItem} />
 		))}
-		<div className="total">
-			<span>Total: ${total}</span>
+		<div className="total">Total: ${total}</div>
+		{/* Test credit cards from react-stripe-checkout */}
+		<div className="test-warning">
+			*NOTE* Please use one of the following test credit cards for
+			payments <br /> VISA: 4242 4242 4242 4242 | Exp: Any future date |
+			CVV: Any 3 digits <br /> Mastercard: 5555 5555 5555 4444 | Exp: Any
+			future date | CVV: Any 3 digits
 		</div>
+		{/* Custom Stripe checkout button from react-stripe-checkout */}
+		<StripeCheckoutButton price={total} />
 	</div>
 );
 
