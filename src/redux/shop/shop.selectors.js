@@ -7,13 +7,6 @@ import { createSelector } from "reselect";
 // Needed to memoize selectCollection function
 import memoize from "lodash.memoize";
 
-/* Needed since router gives us string but data gives us number. Simply assign
-the respective number to the route */
-const COLLECTION_ID_MAP = {
-	premium: 1,
-	regular: 2,
-};
-
 /* Selectors also aim to give us back only a piece of state for further optimization.
 Seen here as state => state.shop => shop.collections (final) */
 const selectShop = (state) => state.shop;
@@ -24,16 +17,20 @@ export const selectCollections = createSelector(
 	(shop) => shop.collections
 );
 
+// Selector for transforming JS Object collections to array collections
+export const selectCollectionsForPreview = createSelector(
+	[selectCollections],
+	// Get key from Object, use it as index to Object to make it into array
+	(collections) => Object.keys(collections).map((key) => collections[key])
+);
+
 /* Needed third-party dependency to memoize since collectionUrlParam is dynamic
 argument. Memoize optimized this function so if the same url is used, we don't
 have to render it again (i.e. going from /premium to /premium) */
 // Selector for finding only the matching collection.id state
 export const selectCollection = memoize((collectionUrlParam) =>
-	createSelector([selectCollections], (collections) =>
-		collections.find(
-			(collection) =>
-				// Find matching ID based on assigned mapping
-				collection.id === COLLECTION_ID_MAP[collectionUrlParam]
-		)
+	createSelector(
+		[selectCollections],
+		(collections) => collections[collectionUrlParam]
 	)
 );

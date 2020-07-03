@@ -1,6 +1,6 @@
 // JS Object equivalent of shop-data.json previously used
-const SHOP_DATA = [
-	{
+const SHOP_DATA = {
+	premium: {
 		id: 1,
 		title: "Premium Items",
 		routeName: "premium",
@@ -166,7 +166,7 @@ const SHOP_DATA = [
 			},
 		],
 	},
-	{
+	regular: {
 		id: 2,
 		title: "Regular Items",
 		routeName: "regular",
@@ -430,6 +430,6 @@ const SHOP_DATA = [
 			},
 		],
 	},
-];
+};
 
 export default SHOP_DATA;
