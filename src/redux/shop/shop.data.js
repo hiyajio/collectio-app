@@ -3,7 +3,7 @@ const SHOP_DATA = [
 	{
 		id: 1,
 		title: "Premium Items",
-		routeName: "premium-items",
+		routeName: "premium",
 		items: [
 			{
 				id: 1,
@@ -169,7 +169,7 @@ const SHOP_DATA = [
 	{
 		id: 2,
 		title: "Regular Items",
-		routeName: "regular-items",
+		routeName: "regular",
 		items: [
 			{
 				id: 15,
