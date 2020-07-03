@@ -8,8 +8,13 @@ import { persistStore } from "redux-persist";
 
 import rootReducer from "./root-reducer";
 
-// Logger is for redux debugging (auto console.log equivalent)
-const middlewares = [logger];
+const middlewares = [];
+
+// Production build optimization - only show redux-logger logs in development
+if (process.env.NODE_ENV === "development") {
+	// Logger is for redux debugging (auto console.log equivalent)
+	middlewares.push(logger);
+}
 
 /* Consolidate all reducers since funneled through rootReducer and all middlewares
 effectively creating our store for state management */
