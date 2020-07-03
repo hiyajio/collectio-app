@@ -1,19 +1,32 @@
 import React from "react";
 
+// Needed for redux state management
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+
 import CollectionPreview from "../../components/collection-preview/collection-preview";
+// Bring in JSON data for menu items (Deprecated => moved to redux store)
+// import shopData from "../../data/shop-data.json";
 
-// Bring in JSON data for shop items
-import shopData from "../../data/shop-data.json";
+import { selectCollections } from "../../redux/shop/shop.selectors";
 
-const ShopPage = () => (
+// Destructuring 'prop' into their specific counterpart for syntactic sugar
+const ShopPage = ({ collections }) => (
 	<div className="shop-page">
 		{/* Using ES6 map in order to dynamically create multiple preview items
-        using JSON data. Also using ES6 spread operator as syntactic sugar
+        using JS Object. Also using ES6 spread operator as syntactic sugar
         since other props needed are just their namesake (ex: title={title}) */}
-		{shopData.map(({ id, ...otherShopDataProps }) => (
+		{collections.map(({ id, ...otherShopDataProps }) => (
 			<CollectionPreview key={id} {...otherShopDataProps} />
 		))}
 	</div>
 );
 
-export default ShopPage;
+// Gain access to collections state
+// Syntactic sugar for Selectors as no need to explicitly type passing of state
+const mapStateToProps = createStructuredSelector({
+	collections: selectCollections,
+});
+
+// Pass it again since one-way data flow
+export default connect(mapStateToProps)(ShopPage);

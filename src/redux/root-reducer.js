@@ -9,6 +9,7 @@ import storage from "redux-persist/lib/storage";
 import userReducer from "./user/user.reducer";
 import cartReducer from "./cart/cart.reducer";
 import directoryReducer from "./directory/directory.reducer";
+import shopReducer from "./shop/shop.reducer";
 
 const persistConfig = {
 	// key: At what point within our reducer do you want to start storing
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
 	user: userReducer,
 	cart: cartReducer,
 	directory: directoryReducer,
+	shop: shopReducer,
 });
 
 // Export the persisting settings + the root reducer

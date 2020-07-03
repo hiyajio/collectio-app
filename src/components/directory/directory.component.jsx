@@ -4,11 +4,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import { selectDirectorySections } from "../../redux/directory/directory.selectors";
-
 import MenuItem from "../menu-item/menu-item.component";
 // Bring in JSON data for menu items (Deprecated => moved to redux store)
 // import directoryData from "../../data/directory.json";
+
+import { selectDirectorySections } from "../../redux/directory/directory.selectors";
 
 import "./directory.styles.scss";
 
