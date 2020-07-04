@@ -13,12 +13,15 @@ import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import { selectCartHidden } from "../../redux/cart/cart.selectors";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 
+// Needed for styled-components styling
 import {
 	HeaderContainer,
 	LogoContainer,
 	OptionsContainer,
 	OptionLink,
 } from "./header.styles";
+
+// import "./header.styles.scss" => Deprecated (converted sass to styled-components)
 
 // Destructuring 'prop' into their specific counterparts for syntactic sugar
 const Header = ({ currentUser, hidden }) => (

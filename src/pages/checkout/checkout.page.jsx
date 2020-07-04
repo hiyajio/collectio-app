@@ -12,6 +12,7 @@ import {
 	selectCartTotal,
 } from "../../redux/cart/cart.selectors";
 
+// Needed for styled-components styling
 import {
 	CheckoutPageContainer,
 	CheckoutHeaderContainer,
@@ -20,7 +21,7 @@ import {
 	WarningContainer,
 } from "./checkout.styles";
 
-// import "./checkout.styles.scss";
+// import "./checkout.styles.scss"; => Deprecated (converted sass to styled-components)
 
 // Destructuring 'prop' into their specific counterpart for syntactic sugar
 const CheckoutPage = ({ cartItems, total }) => (

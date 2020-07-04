@@ -6,13 +6,14 @@ import { connect } from "react-redux";
 import CollectionItem from "../../components/collection-item/collection-item.component";
 import { selectCollection } from "../../redux/shop/shop.selectors";
 
+// Needed for styled-components styling
 import {
 	CollectionPageContainer,
 	CollectionTitle,
 	CollectionItemsContainer,
 } from "./collection.styles";
 
-// import "./collection.styles.scss";
+// import "./collection.styles.scss"; => Deprecated (converted sass to styled-components)
 
 // Destructuring 'prop' into their specific counterpart for syntactic sugar
 const CollectionPage = ({ collection }) => {
