@@ -1,3 +1,4 @@
+import ShopActionTypes from "./shop.types";
 // Syntactic sugar - simply pull in the data from external JS Object file
 import SHOP_DATA from "./shop.data";
 
@@ -9,6 +10,11 @@ const INITIAL_STATE = {
 // Any and all reducers for shop goes into this and is checked using switch case
 const shopReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
+		case ShopActionTypes.UPDATE_COLLECTIONS:
+			return {
+				...state,
+				collections: action.payload,
+			};
 		default:
 			return state;
 	}
