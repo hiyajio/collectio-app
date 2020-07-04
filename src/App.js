@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import "firebase/firestore";
+import "firebase/auth";
 
 // Needed for routing
 import { Switch, Route, Redirect } from "react-router-dom";
@@ -19,7 +21,17 @@ import CheckoutPage from "./pages/checkout/checkout.page";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+/* Programatically add shop-data to Firebase ONCE
+=> Deprecated since done already */
+// import { selectCollectionsForPreview } from "./redux/shop/shop.selectors";
+
+import {
+	auth,
+	createUserProfileDocument,
+	/* Programatically add shop-data to Firebase ONCE
+	=> Deprecated since done already */
+	// addCollectionAndDocuments,
+} from "./firebase/firebase.utils";
 
 // Need to turn into Component since need to keep track of state for OAuth
 class App extends Component {
@@ -29,7 +41,10 @@ class App extends Component {
 	/* Custom componentDidMount function (called when component successfully
 	loads after getting called) */
 	componentDidMount() {
-		const { setCurrentUser } = this.props;
+		/* Programatically add shop-data to Firebase ONCE
+		=> Deprecated since done already */
+		const { setCurrentUser /*, collectionsArray */ } = this.props;
+
 		/* Used for user persistence. Once signed in, if they did not sign out,
 		next visit they will still be signed in. Also store user in database. */
 		this.unsubcribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
@@ -51,6 +66,10 @@ class App extends Component {
 				/* Checks for no user and sets it to null i.e. no one signed in
 				Update current state of app as well */
 				setCurrentUser(userAuth);
+
+				/* Programatically add shop-data to Firebase ONCE
+				=> Deprecated since done already */
+				// addCollectionAndDocuments("collections", collectionsArray);
 			}
 		});
 	}
@@ -97,6 +116,9 @@ class App extends Component {
 // Syntactic sugar for Selectors as no need to explicitly type passing of state
 const mapStateToProps = createStructuredSelector({
 	currentUser: selectCurrentUser,
+	/* Programatically add shop-data to Firebase ONCE
+	=> Deprecated since done already */
+	// collectionsArray: selectCollectionsForPreview,
 });
 
 // Update and dispatch global redux reducer to all listeners

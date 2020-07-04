@@ -51,6 +51,34 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 	return userRef;
 };
 
+/* Set up function to programatically add new collection and local documents to
+Firebase Firestore (database) */
+export const addCollectionAndDocuments = async (
+	collectionKey,
+	objectsToAdd
+) => {
+	// Get a collection reference from key received
+	const collectionRef = firestore.collection(collectionKey);
+
+	/* Batch is used to ship and set everything in one instance compared to
+	doing it one at a time as it is a more secure data transfer */
+	const batch = firestore.batch();
+
+	// Set new documents in collection for database
+	objectsToAdd.forEach((obj) => {
+		const newDocRef = collectionRef.doc();
+
+		// Batch commit without pointer reference
+		// batch.set(newDocRef, obj);
+
+		// Use docRef ID received from firestore as collectionID to point back
+		batch.set(newDocRef, { obj, documentID: newDocRef.id });
+	});
+
+	// Commit the batch and send confirmation back that it did
+	return await batch.commit();
+};
+
 // Export for auth and firestore access
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
