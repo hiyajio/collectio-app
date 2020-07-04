@@ -79,6 +79,34 @@ export const addCollectionAndDocuments = async (
 	return await batch.commit();
 };
 
+// Set up function to retrive collection from firestore and fix it for front end use
+export const convertCollectionSnapshotToMap = (collections) => {
+	// Map through all the docs (shop categories)
+	const transformedCollection = collections.docs.map((doc) => {
+		// Retrive and assign title and items for front end use
+		const { obj } = doc.data();
+		const title = obj.title;
+		const items = obj.items;
+
+		return {
+			/* Programmatically create a URI to serve as routeName. Intentionally
+			did not bring up routeName to database for database industry standards
+			(why clutter database w/ routeName if database would be used by mobile
+			in the future? - unnecessary data) */
+			routeName: encodeURI(title.toLowerCase()),
+			id: doc.id,
+			title,
+			items,
+		};
+	});
+
+	// Create JS Object wherein the key is the title and is assigned to collection
+	return transformedCollection.reduce((accumulator, collection) => {
+		accumulator[collection.title.toLowerCase()] = collection;
+		return accumulator;
+	}, {});
+};
+
 // Export for auth and firestore access
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();

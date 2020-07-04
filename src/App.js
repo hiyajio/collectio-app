@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+// Needed for firebase authentication and database
 import "firebase/firestore";
 import "firebase/auth";
 
