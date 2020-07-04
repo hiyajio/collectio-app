@@ -1,5 +1,6 @@
 import React from "react";
 
+// Needed for routing
 import { withRouter } from "react-router-dom";
 
 import CollectionItem from "../collection-item/collection-item.component";
@@ -28,4 +29,6 @@ const CollectionPreview = ({ title, items, history, match, routeName }) => (
 	</div>
 );
 
+/*  Wrap around withRouter so that we have access to the routing props that came
+from homepage. This is to ensure we do not do prop drilling or tunneling */
 export default withRouter(CollectionPreview);

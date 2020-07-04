@@ -14,6 +14,7 @@ import {
 
 import { updateCollections } from "../../redux/shop/shop.actions";
 
+// HOC for async page loading
 import WithSpinner from "../../components/with-spinner/with-spinner.component";
 
 // Bring in JSON data for menu items (Deprecated => moved to redux store)
@@ -26,6 +27,7 @@ const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
 const CollectionPageWithSpinner = WithSpinner(CollectionPage);
 
 class ShopPage extends Component {
+	// Syntactic sugar: eqiuvalent to creating the constructor(){super()} combo
 	state = {
 		loading: true,
 	};
@@ -48,7 +50,7 @@ class ShopPage extends Component {
 	}
 
 	render() {
-		// Destructuring 'prop' into their specific counterpart for syntactic sugar
+		// Destructuring 'prop' & 'state' into their specific counterpart for syntactic sugar
 		// Gain access to match from react-router-dom since nested route
 		const { match } = this.props;
 		const { loading } = this.state;
@@ -58,7 +60,8 @@ class ShopPage extends Component {
 				<Route
 					exact
 					path={`${match.path}`}
-					// component={CollectionsOverview}
+					// component={CollectionsOverview} => Deprecated (need async loading)
+					// Return HOC showing a spinner until all data is loaded from firebase
 					render={(props) => (
 						<CollectionsOverviewWithSpinner
 							isLoading={loading}
@@ -69,7 +72,8 @@ class ShopPage extends Component {
 				{/* Dynamic nested route. Displays page depending on specific collection */}
 				<Route
 					path={`${match.path}/:collectionId`}
-					// component={CollectionPage}
+					// component={CollectionPage} => Deprecated (need async loading)
+					// Return HOC showing a spinner until all data is loaded from firebase
 					render={(props) => (
 						<CollectionPageWithSpinner
 							isLoading={loading}

@@ -1,4 +1,6 @@
 import React from "react";
+
+// Needed for routing
 import { withRouter } from "react-router-dom";
 
 import "./menu-item.styles.scss";
@@ -9,6 +11,7 @@ const MenuItem = ({ title, imageUrl, history, linkUrl, match }) => (
 	// Basic dynamic routing done through using JS string interpolation
 	<div
 		className="menu-item"
+		// Fix link URL as it is dynamically made from Firebase now
 		onClick={() => history.push(`${match.url}${linkUrl + "%20items"}`)}
 	>
 		<div
@@ -26,5 +29,5 @@ const MenuItem = ({ title, imageUrl, history, linkUrl, match }) => (
 );
 
 /*  Wrap around withRouter so that we have access to the routing props that came
-    from homepage. This is to ensure we do not do prop drilling or tunneling */
+from homepage. This is to ensure we do not do prop drilling or tunneling */
 export default withRouter(MenuItem);
