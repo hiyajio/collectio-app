@@ -2,13 +2,16 @@ import React from "react";
 
 import Directory from "../../components/directory/directory.component";
 
-import "./homepage.styles.scss";
+// Needed for styled-components styling
+import { HomePageContainer } from "./homepage.styles";
+
+// import "./homepage.styles.scss"; => Deprecated (converted sass to styled-components)
 
 // HomePage => Directory (separated into components for better management)
 const HomePage = () => (
-	<div className="homepage">
+	<HomePageContainer>
 		<Directory />
-	</div>
+	</HomePageContainer>
 );
 
 export default HomePage;

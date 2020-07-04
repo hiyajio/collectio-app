@@ -1,7 +1,5 @@
 import React from "react";
 
-// Needed for routing
-import { Link } from "react-router-dom";
 // Needed for redux state management
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -15,40 +13,42 @@ import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import { selectCartHidden } from "../../redux/cart/cart.selectors";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 
-import "./header.styles.scss";
+// Needed for styled-components styling
+import {
+	HeaderContainer,
+	LogoContainer,
+	OptionsContainer,
+	OptionLink,
+} from "./header.styles";
+
+// import "./header.styles.scss" => Deprecated (converted sass to styled-components)
 
 // Destructuring 'prop' into their specific counterparts for syntactic sugar
 const Header = ({ currentUser, hidden }) => (
-	<div className="header">
-		<Link className="logo-container" to="/">
+	<HeaderContainer>
+		<LogoContainer to="/">
 			{/* Use the custom React Component for SVG imports */}
 			<Logo className="logo" />
-		</Link>
-		<div className="options">
+		</LogoContainer>
+		<OptionsContainer>
 			{/* Use react-router-dom in navigation */}
-			<Link className="option" to="/shop">
-				SHOP
-			</Link>
-			<Link className="option" to="/contact">
-				CONTACT
-			</Link>
+			<OptionLink to="/shop">SHOP</OptionLink>
+			<OptionLink to="/contact">CONTACT</OptionLink>
 			{/* Ternary operator: If user is signed in, show Sign Out button.
             If user is signed out show Sign In button. Checked by looking at
             currentUser received from auth function in App.js */}
 			{currentUser ? (
-				<div className="option" onClick={() => auth.signOut()}>
+				<OptionLink as="div" onClick={() => auth.signOut()}>
 					SIGN OUT
-				</div>
+				</OptionLink>
 			) : (
-				<Link className="option" to="/signin">
-					SIGN IN
-				</Link>
+				<OptionLink to="/signin">SIGN IN</OptionLink>
 			)}
 			<CartIcon />
-		</div>
+		</OptionsContainer>
 		{/* Show dropdown based on state of hidden property */}
 		{hidden ? null : <CartDropdown />}
-	</div>
+	</HeaderContainer>
 );
 
 // Gain access to currentUser and hidden state

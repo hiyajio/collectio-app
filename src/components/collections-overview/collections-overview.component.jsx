@@ -15,8 +15,8 @@ const CollectionsOverview = ({ collections }) => (
 		{/* Using ES6 map in order to dynamically create multiple preview items
         using JS Object. Also using ES6 spread operator as syntactic sugar
         since other props needed are just their namesake (ex: title={title}) */}
-		{collections.map(({ id, ...otherShopDataProps }) => (
-			<CollectionPreview key={id} {...otherShopDataProps} />
+		{collections.map(({ id, ...otherCollectionProps }) => (
+			<CollectionPreview key={id} {...otherCollectionProps} />
 		))}
 	</div>
 );

@@ -1,15 +1,20 @@
 import React from "react";
 
+// Needed for routing
+import { withRouter } from "react-router-dom";
+
 import CollectionItem from "../collection-item/collection-item.component";
 
 import "./collection-preview.styles.scss";
 
 // Destructuring 'prop' into their specific counterparts for syntactic sugar
-const CollectionPreview = ({ title, items }) => (
+const CollectionPreview = ({ title, items, history, match, routeName }) => (
 	<div className="collection-preview">
 		{/* With destructured props (and normal props), we can use JS
         functions on them such as toUpperCase() */}
-		<h1 className="title">{title.toUpperCase()}</h1>
+		<h1 onClick={() => history.push(`${match.path}/${routeName}`)}>
+			<span className="title">{title.toUpperCase()}</span>
+		</h1>
 		<div className="preview">
 			{/* Using ES6 filter to limit render by 4 since it's only a preview.
             Using ES6 map in order to dynamically create multiple preview items
@@ -24,4 +29,6 @@ const CollectionPreview = ({ title, items }) => (
 	</div>
 );
 
-export default CollectionPreview;
+/*  Wrap around withRouter so that we have access to the routing props that came
+from homepage. This is to ensure we do not do prop drilling or tunneling */
+export default withRouter(CollectionPreview);

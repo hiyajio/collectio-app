@@ -51,6 +51,62 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 	return userRef;
 };
 
+/* Set up function to programatically add new collection and local documents to
+Firebase Firestore (database) */
+export const addCollectionAndDocuments = async (
+	collectionKey,
+	objectsToAdd
+) => {
+	// Get a collection reference from key received
+	const collectionRef = firestore.collection(collectionKey);
+
+	/* Batch is used to ship and set everything in one instance compared to
+	doing it one at a time as it is a more secure data transfer */
+	const batch = firestore.batch();
+
+	// Set new documents in collection for database
+	objectsToAdd.forEach((obj) => {
+		const newDocRef = collectionRef.doc();
+
+		// Batch commit without pointer reference
+		// batch.set(newDocRef, obj);
+
+		// Use docRef ID received from firestore as collectionID to point back
+		batch.set(newDocRef, { obj, documentID: newDocRef.id });
+	});
+
+	// Commit the batch and send confirmation back that it did
+	return await batch.commit();
+};
+
+// Set up function to retrive collection from firestore and fix it for front end use
+export const convertCollectionsSnapshotToMap = (collections) => {
+	// Map through all the docs (shop categories)
+	const transformedCollection = collections.docs.map((doc) => {
+		// Retrive and assign title and items for front end use
+		const { obj } = doc.data();
+		const title = obj.title;
+		const items = obj.items;
+
+		return {
+			/* Programmatically create a URI to serve as routeName. Intentionally
+			did not bring up routeName to database for database industry standards
+			(why clutter database w/ routeName if database would be used by mobile
+			in the future? - unnecessary data) */
+			routeName: encodeURI(title.toLowerCase()),
+			id: doc.id,
+			title,
+			items,
+		};
+	});
+
+	// Create JS Object wherein the key is the title and is assigned to collection
+	return transformedCollection.reduce((accumulator, collection) => {
+		accumulator[collection.title.toLowerCase()] = collection;
+		return accumulator;
+	}, {});
+};
+
 // Export for auth and firestore access
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
