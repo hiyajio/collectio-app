@@ -9,7 +9,7 @@ const MenuItem = ({ title, imageUrl, history, linkUrl, match }) => (
 	// Basic dynamic routing done through using JS string interpolation
 	<div
 		className="menu-item"
-		onClick={() => history.push(`${match.url}${linkUrl}`)}
+		onClick={() => history.push(`${match.url}${linkUrl + "%20items"}`)}
 	>
 		<div
 			className="background-image"

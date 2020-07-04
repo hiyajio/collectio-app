@@ -9,10 +9,12 @@ import { connect } from "react-redux";
 // Needed to retrieve shop-data from firestore
 import {
 	firestore,
-	convertCollectionSnapshotToMap,
+	convertCollectionsSnapshotToMap,
 } from "../../firebase/firebase.utils";
 
 import { updateCollections } from "../../redux/shop/shop.actions";
+
+import WithSpinner from "../../components/with-spinner/with-spinner.component";
 
 // Bring in JSON data for menu items (Deprecated => moved to redux store)
 // import shopData from "../../data/shop-data.json";
@@ -20,7 +22,14 @@ import { updateCollections } from "../../redux/shop/shop.actions";
 import CollectionsOverview from "../../components/collections-overview/collections-overview.component";
 import CollectionPage from "../collection/collection.page";
 
+const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
+const CollectionPageWithSpinner = WithSpinner(CollectionPage);
+
 class ShopPage extends Component {
+	state = {
+		loading: true,
+	};
+
 	unsubsribeFromSnapshot = null;
 
 	componentDidMount() {
@@ -31,29 +40,42 @@ class ShopPage extends Component {
 
 		/* Push snapshop (current status of database) to util function
 		to be converted for front end use */
-		this.unsubsribeFromSnapshot = collectionRef.onSnapshot(
-			async (snapshot) => {
-				const collectionsMap = convertCollectionSnapshotToMap(snapshot);
-				updateCollections(collectionsMap);
-			}
-		);
+		collectionRef.get().then((snapshot) => {
+			const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+			updateCollections(collectionsMap);
+			this.setState({ loading: false });
+		});
 	}
 
 	render() {
 		// Destructuring 'prop' into their specific counterpart for syntactic sugar
 		// Gain access to match from react-router-dom since nested route
 		const { match } = this.props;
+		const { loading } = this.state;
+
 		return (
 			<div className="shop-page">
 				<Route
 					exact
 					path={`${match.path}`}
-					component={CollectionsOverview}
+					// component={CollectionsOverview}
+					render={(props) => (
+						<CollectionsOverviewWithSpinner
+							isLoading={loading}
+							{...props}
+						/>
+					)}
 				/>
 				{/* Dynamic nested route. Displays page depending on specific collection */}
 				<Route
 					path={`${match.path}/:collectionId`}
-					component={CollectionPage}
+					// component={CollectionPage}
+					render={(props) => (
+						<CollectionPageWithSpinner
+							isLoading={loading}
+							{...props}
+						/>
+					)}
 				/>
 			</div>
 		);

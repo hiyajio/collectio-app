@@ -21,7 +21,10 @@ export const selectCollections = createSelector(
 export const selectCollectionsForPreview = createSelector(
 	[selectCollections],
 	// Get key from Object, use it as index to Object to make it into array
-	(collections) => Object.keys(collections).map((key) => collections[key])
+	(collections) =>
+		collections
+			? Object.keys(collections).map((key) => collections[key])
+			: []
 );
 
 /* Needed third-party dependency to memoize since collectionUrlParam is dynamic
@@ -29,8 +32,7 @@ argument. Memoize optimized this function so if the same url is used, we don't
 have to render it again (i.e. going from /premium to /premium) */
 // Selector for finding only the matching collection.id state
 export const selectCollection = memoize((collectionUrlParam) =>
-	createSelector(
-		[selectCollections],
-		(collections) => collections[collectionUrlParam]
+	createSelector([selectCollections], (collections) =>
+		collections ? collections[collectionUrlParam] : null
 	)
 );
