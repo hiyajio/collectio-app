@@ -4,51 +4,59 @@ import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
+import CheckoutItem from "../../components/checkout-item/checkout-item.component";
+import StripeCheckoutButton from "../../components/stripe-button/stripe-button.component";
+
 import {
 	selectCartItems,
 	selectCartTotal,
 } from "../../redux/cart/cart.selectors";
 
-import CheckoutItem from "../../components/checkout-item/checkout-item.component";
-import StripeCheckoutButton from "../../components/stripe-button/stripe-button.component";
+import {
+	CheckoutPageContainer,
+	CheckoutHeaderContainer,
+	HeaderBlockContainer,
+	TotalContainer,
+	WarningContainer,
+} from "./checkout.styles";
 
-import "./checkout.styles.scss";
+// import "./checkout.styles.scss";
 
 // Destructuring 'prop' into their specific counterpart for syntactic sugar
 const CheckoutPage = ({ cartItems, total }) => (
-	<div className="checkout-page">
-		<div className="checkout-header">
-			<div className="header-block">
+	<CheckoutPageContainer>
+		<CheckoutHeaderContainer>
+			<HeaderBlockContainer>
 				<span>Product</span>
-			</div>
-			<div className="header-block">
+			</HeaderBlockContainer>
+			<HeaderBlockContainer>
 				<span>Description</span>
-			</div>
-			<div className="header-block">
+			</HeaderBlockContainer>
+			<HeaderBlockContainer>
 				<span>Quantity</span>
-			</div>
-			<div className="header-block">
+			</HeaderBlockContainer>
+			<HeaderBlockContainer>
 				<span>Price</span>
-			</div>
-			<div className="header-block">
+			</HeaderBlockContainer>
+			<HeaderBlockContainer>
 				<span>Remove</span>
-			</div>
-		</div>
+			</HeaderBlockContainer>
+		</CheckoutHeaderContainer>
 		{/* Map through and display items in cart */}
 		{cartItems.map((cartItem) => (
 			<CheckoutItem key={cartItem.id} cartItem={cartItem} />
 		))}
-		<div className="total">Total: ${total}</div>
+		<TotalContainer>Total: ${total}</TotalContainer>
 		{/* Test credit cards from react-stripe-checkout */}
-		<div className="test-warning">
+		<WarningContainer>
 			*NOTE* Please use one of the following test credit cards for
 			payments <br /> VISA: 4242 4242 4242 4242 | Exp: Any future date |
 			CVV: Any 3 digits <br /> Mastercard: 5555 5555 5555 4444 | Exp: Any
 			future date | CVV: Any 3 digits
-		</div>
+		</WarningContainer>
 		{/* Custom Stripe checkout button from react-stripe-checkout */}
 		<StripeCheckoutButton price={total} />
-	</div>
+	</CheckoutPageContainer>
 );
 
 // Gain access to cartItems and total state
