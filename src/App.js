@@ -45,6 +45,7 @@ class App extends Component {
 	componentDidMount() {
 		/* Programatically add shop-data to Firebase ONCE
 		=> Deprecated since done already */
+		// Destructuring 'prop' into their specific counterpart for syntactic sugar
 		const { setCurrentUser /*, collectionsArray */ } = this.props;
 
 		/* Used for user persistence. Once signed in, if they did not sign out,

@@ -3,11 +3,16 @@ import React, { Component } from "react";
 // Needed for routing
 import { Route } from "react-router-dom";
 
+// Needed for redux state management
+import { connect } from "react-redux";
+
 // Needed to retrieve shop-data from firestore
 import {
 	firestore,
 	convertCollectionSnapshotToMap,
 } from "../../firebase/firebase.utils";
+
+import { updateCollections } from "../../redux/shop/shop.actions";
 
 // Bring in JSON data for menu items (Deprecated => moved to redux store)
 // import shopData from "../../data/shop-data.json";
@@ -19,6 +24,8 @@ class ShopPage extends Component {
 	unsubsribeFromSnapshot = null;
 
 	componentDidMount() {
+		// Destructuring 'prop' into their specific counterpart for syntactic sugar
+		const { updateCollections } = this.props;
 		// Once shop page is mounted, retrive collection
 		const collectionRef = firestore.collection("collections");
 
@@ -27,7 +34,7 @@ class ShopPage extends Component {
 		this.unsubsribeFromSnapshot = collectionRef.onSnapshot(
 			async (snapshot) => {
 				const collectionsMap = convertCollectionSnapshotToMap(snapshot);
-				console.log(collectionsMap);
+				updateCollections(collectionsMap);
 			}
 		);
 	}
@@ -53,4 +60,11 @@ class ShopPage extends Component {
 	}
 }
 
-export default ShopPage;
+// Update and dispatch global redux reducer to all listeners
+const mapDispatchToProps = (dispatch) => ({
+	updateCollections: (collectionsMap) =>
+		dispatch(updateCollections(collectionsMap)),
+});
+
+// Pass it again since one-way data flow
+export default connect(null, mapDispatchToProps)(ShopPage);
