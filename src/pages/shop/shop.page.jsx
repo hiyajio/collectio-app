@@ -5,14 +5,22 @@ import { Route } from "react-router-dom";
 
 // Needed for redux state management
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+
+import { fetchCollectionsStartAsync } from "../../redux/shop/shop.actions";
+import {
+	selectIsCollectionFetching,
+	selectIsCollectionsLoaded,
+} from "../../redux/shop/shop.selectors";
 
 // Needed to retrieve shop-data from firestore
-import {
+/* import {
 	firestore,
 	convertCollectionsSnapshotToMap,
-} from "../../firebase/firebase.utils";
+} from "../../firebase/firebase.utils"; Deprecated => replaced by redux-thunk */
 
-import { updateCollections } from "../../redux/shop/shop.actions";
+// Deprecated => async function calls to database moved to redux through thunk
+// import { updateCollections } from "../../redux/shop/shop.actions";
 
 // HOC for async page loading
 import WithSpinner from "../../components/with-spinner/with-spinner.component";
@@ -28,32 +36,40 @@ const CollectionPageWithSpinner = WithSpinner(CollectionPage);
 
 class ShopPage extends Component {
 	// Syntactic sugar: eqiuvalent to creating the constructor(){super()} combo
-	state = {
+	/* state = {
 		loading: true,
 	};
 
 	unsubsribeFromSnapshot = null;
+	=> Deprecated since async database calls have been moved to redux through thunk */
 
 	componentDidMount() {
-		// Destructuring 'prop' into their specific counterpart for syntactic sugar
+		// Start collection fetch as soon as mount
+		const { fetchCollectionsStartAsync } = this.props;
+		fetchCollectionsStartAsync();
+		/* // Destructuring 'prop' into their specific counterpart for syntactic sugar
 		const { updateCollections } = this.props;
 		// Once shop page is mounted, retrive collection
 		const collectionRef = firestore.collection("collections");
 
 		/* Push snapshop (current status of database) to util function
 		to be converted for front end use */
-		collectionRef.get().then((snapshot) => {
+		/* collectionRef.get().then((snapshot) => {
 			const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
 			updateCollections(collectionsMap);
 			this.setState({ loading: false });
-		});
+		}); => Deprecated since async database calls have been moved to redux through thunk */
 	}
 
 	render() {
-		// Destructuring 'prop' & 'state' into their specific counterpart for syntactic sugar
+		// Destructuring 'prop' into its specific counterparts for syntactic sugar
 		// Gain access to match from react-router-dom since nested route
-		const { match } = this.props;
-		const { loading } = this.state;
+		const {
+			match,
+			isFetchingCollections,
+			isCollectionsLoaded,
+		} = this.props;
+		// const { loading } = this.state; => Deprecated since async database calls moved to redux
 
 		return (
 			<div className="shop-page">
@@ -64,7 +80,7 @@ class ShopPage extends Component {
 					// Return HOC showing a spinner until all data is loaded from firebase
 					render={(props) => (
 						<CollectionsOverviewWithSpinner
-							isLoading={loading}
+							isLoading={isFetchingCollections}
 							{...props}
 						/>
 					)}
@@ -76,7 +92,8 @@ class ShopPage extends Component {
 					// Return HOC showing a spinner until all data is loaded from firebase
 					render={(props) => (
 						<CollectionPageWithSpinner
-							isLoading={loading}
+							// Needs to have ! because Loading & Loaded are opposites
+							isLoading={!isCollectionsLoaded}
 							{...props}
 						/>
 					)}
@@ -86,11 +103,19 @@ class ShopPage extends Component {
 	}
 }
 
+// Gain access to isFetchingCollections and isCollectionsLoaded states
+const mapStateToProps = createStructuredSelector({
+	isFetchingCollections: selectIsCollectionFetching,
+	isCollectionsLoaded: selectIsCollectionsLoaded,
+});
+
 // Update and dispatch global redux reducer to all listeners
 const mapDispatchToProps = (dispatch) => ({
-	updateCollections: (collectionsMap) =>
+	/* updateCollections: (collectionsMap) =>
 		dispatch(updateCollections(collectionsMap)),
+		=> Deprecated since async database calls have been moved to redux through thunk */
+	fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync()),
 });
 
 // Pass it again since one-way data flow
-export default connect(null, mapDispatchToProps)(ShopPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);
