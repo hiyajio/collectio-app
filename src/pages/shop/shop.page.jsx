@@ -6,80 +6,44 @@ import { Route } from "react-router-dom";
 // Needed for redux state management
 import { connect } from "react-redux";
 
-// Needed to retrieve shop-data from firestore
-import {
-	firestore,
-	convertCollectionsSnapshotToMap,
-} from "../../firebase/firebase.utils";
-
-import { updateCollections } from "../../redux/shop/shop.actions";
-
-// HOC for async page loading
-import WithSpinner from "../../components/with-spinner/with-spinner.component";
+import { fetchCollectionsStartAsync } from "../../redux/shop/shop.actions";
 
 // Bring in JSON data for menu items (Deprecated => moved to redux store)
 // import shopData from "../../data/shop-data.json";
 
-import CollectionsOverview from "../../components/collections-overview/collections-overview.component";
-import CollectionPage from "../collection/collection.page";
-
-const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
-const CollectionPageWithSpinner = WithSpinner(CollectionPage);
+import CollectionsOverviewContainer from "../../components/collections-overview/collections-overview.container";
+import CollectionPageContainer from "../collection/collection.container";
 
 class ShopPage extends Component {
 	// Syntactic sugar: eqiuvalent to creating the constructor(){super()} combo
-	state = {
+	/* state = {
 		loading: true,
-	};
-
-	unsubsribeFromSnapshot = null;
+	}; */
 
 	componentDidMount() {
-		// Destructuring 'prop' into their specific counterpart for syntactic sugar
-		const { updateCollections } = this.props;
-		// Once shop page is mounted, retrive collection
-		const collectionRef = firestore.collection("collections");
-
-		/* Push snapshop (current status of database) to util function
-		to be converted for front end use */
-		collectionRef.get().then((snapshot) => {
-			const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-			updateCollections(collectionsMap);
-			this.setState({ loading: false });
-		});
+		// Start collection fetch as soon as mount
+		const { fetchCollectionsStartAsync } = this.props;
+		fetchCollectionsStartAsync();
 	}
 
 	render() {
-		// Destructuring 'prop' & 'state' into their specific counterpart for syntactic sugar
+		// Destructuring 'props' into its specific counterparts for syntactic sugar
 		// Gain access to match from react-router-dom since nested route
 		const { match } = this.props;
-		const { loading } = this.state;
 
 		return (
 			<div className="shop-page">
 				<Route
 					exact
 					path={`${match.path}`}
-					// component={CollectionsOverview} => Deprecated (need async loading)
 					// Return HOC showing a spinner until all data is loaded from firebase
-					render={(props) => (
-						<CollectionsOverviewWithSpinner
-							isLoading={loading}
-							{...props}
-						/>
-					)}
+					component={CollectionsOverviewContainer}
 				/>
 				{/* Dynamic nested route. Displays page depending on specific collection */}
 				<Route
 					path={`${match.path}/:collectionId`}
-					// component={CollectionPage} => Deprecated (need async loading)
 					// Return HOC showing a spinner until all data is loaded from firebase
-					render={(props) => (
-						<CollectionPageWithSpinner
-							isLoading={loading}
-							{...props}
-						/>
-					)}
+					component={CollectionPageContainer}
 				/>
 			</div>
 		);
@@ -88,8 +52,7 @@ class ShopPage extends Component {
 
 // Update and dispatch global redux reducer to all listeners
 const mapDispatchToProps = (dispatch) => ({
-	updateCollections: (collectionsMap) =>
-		dispatch(updateCollections(collectionsMap)),
+	fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync()),
 });
 
 // Pass it again since one-way data flow
