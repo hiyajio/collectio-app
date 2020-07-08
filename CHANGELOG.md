@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implement Redux and cart functionality
 - Cart session persistence (memoization), finish individual collection routing, Stripe integration and refactoring
 - styled-components, fix db schema, push and implement shop-data from Firebase, spinner HOC, more routing
+- Initialize CHANGELOG, use redux-thunk to group shop fetching functions, refactor for Container pattern
 
 ## [0.1.0] - 2020-06-26
 ### Added
