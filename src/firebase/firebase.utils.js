@@ -40,6 +40,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 				displayName,
 				email,
 				createdAt,
+				// Add pointer back to user
+				documentID: userRef.id,
 				...additionalData,
 			});
 		} catch (error) {
