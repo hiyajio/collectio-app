@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cart session persistence (memoization), finish individual collection routing, Stripe integration and refactoring
 - styled-components, fix db schema, push and implement shop-data from Firebase, spinner HOC, more routing
 - Initialize CHANGELOG, use redux-thunk to group shop fetching functions, refactor for Container pattern
+- Add component tree diagram, uml diagram and fix db user collection pointers
 
 ## [0.1.0] - 2020-06-26
 ### Added
@@ -19,3 +20,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Create and style shop preview page, ingest shop JSON data
 - Finish custom functions, class component use, and template functions
 - Firebase authentication and user storage through google oauth, email and password sign up/sign in
+
+[0.2.0]: https://github.com/lockjio/collectio-site/releases/tag/v0.2.0
