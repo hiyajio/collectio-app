@@ -114,10 +114,10 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 // Initialize and export needed constants and functions for Google Sign In
-const provider = new firebase.auth.GoogleAuthProvider();
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
 // Popup every time Google Sign in is initiated will be from choosing account
-provider.setCustomParameters({ prompt: "select_account" });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+googleProvider.setCustomParameters({ prompt: "select_account" });
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 // Export entire firebase as well just in case we need other functions later
 export default firebase;

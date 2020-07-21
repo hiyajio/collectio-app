@@ -1,6 +1,7 @@
 import { all, call } from "redux-saga/effects";
 
 import { fetchCollectionsStart } from "./shop/shop.sagas";
+import { userSagas } from "./user/user.sagas";
 
 // Same as root-reducer, we need to group all sagas and fire them at the same time
 export default function* rootSaga() {
@@ -9,5 +10,5 @@ export default function* rootSaga() {
     to run those sagas concurrently (yield == await) */
 	/* call effect is essentially a function call. Syntax below is equivalent to
     fetchCollectionsStart() => Still works, this is just the saga way of doing things */
-	yield all([call(fetchCollectionsStart)]);
+	yield all([call(fetchCollectionsStart), call(userSagas)]);
 }

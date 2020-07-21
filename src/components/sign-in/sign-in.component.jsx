@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 
+// Needed for redux state management
+import { connect } from "react-redux";
+
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
-import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
+import { auth } from "../../firebase/firebase.utils";
+import { googleSignInStart } from "../../redux/user/user.actions";
 
 import "./sign-in.styles.scss";
 
@@ -48,6 +52,7 @@ class SignIn extends Component {
 	};
 
 	render() {
+		const { googleSignInStart } = this.props;
 		return (
 			<div className="sign-in">
 				<h2>I already have an account</h2>
@@ -79,7 +84,7 @@ class SignIn extends Component {
 						{/* Using signInWithGoogle initialize in utils for OAuth */}
 						<CustomButton
 							type="button"
-							onClick={signInWithGoogle}
+							onClick={googleSignInStart}
 							isGoogleSignIn
 						></CustomButton>
 					</div>
@@ -89,4 +94,10 @@ class SignIn extends Component {
 	}
 }
 
-export default SignIn;
+// Update and dispatch global redux reducer to all listeners
+const mapDispatchToProps = (dispatch) => ({
+	googleSignInStart: () => dispatch(googleSignInStart()),
+});
+
+// Pass it again since one-way data flow
+export default connect(null, mapDispatchToProps)(SignIn);
