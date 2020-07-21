@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 
 // Needed for firebase authentication and database
 import "firebase/firestore";
@@ -22,57 +22,40 @@ import CheckoutPage from "./pages/checkout/checkout.page";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 import { checkUserSession } from "./redux/user/user.actions";
 
-// Need to turn into Component since need to keep track of state for OAuth
-class App extends Component {
-	// Initialize variable for disconnecting event listener
-	unsubcribeFromAuth = null;
-
-	/* Custom componentDidMount function (called when component successfully
-	loads after getting called) */
-	componentDidMount() {
-		const { checkUserSession } = this.props;
+// Add Hooks through useEffect (== componentDidMount)
+const App = ({ checkUserSession, currentUser }) => {
+	// Need to put checkUserSession in array so not called (re-rendered) twice
+	useEffect(() => {
 		checkUserSession();
-	}
+	}, [checkUserSession]);
 
-	// Custom componentWillUnmount function for unsubscribing event listener
-	componentWillUnmount() {
-		// Makes sure no data leaks happen and also allows stops user persistence
-		this.unsubcribeFromAuth();
-	}
-
-	render() {
-		return (
-			<div>
-				{/* User styled-components for global app-level styling */}
-				<GlobalStyle />
-				{/* By placing Header above Switch, this ensure it is only rendered once
+	return (
+		<div>
+			{/* User styled-components for global app-level styling */}
+			<GlobalStyle />
+			{/* By placing Header above Switch, this ensure it is only rendered once
 				and will stay regardless of which page is chosen */}
-				<Header />
-				{/* Switch is its namesake. Only the first one we find that matches path
+			<Header />
+			{/* Switch is its namesake. Only the first one we find that matches path
 				will be rendered. Think of it as a switch case or chained if-else
 				statements */}
-				<Switch>
-					<Route exact path="/" component={HomePage} />
-					<Route path="/shop" component={ShopPage} />
-					<Route exact path="/checkout" component={CheckoutPage} />
-					<Route
-						exact
-						path="/signin"
-						/* If user logged in already, deny access to sign in page.
+			<Switch>
+				<Route exact path="/" component={HomePage} />
+				<Route path="/shop" component={ShopPage} />
+				<Route exact path="/checkout" component={CheckoutPage} />
+				<Route
+					exact
+					path="/signin"
+					/* If user logged in already, deny access to sign in page.
 						Also, redirect to home page if once signed in */
-						render={() =>
-							this.props.currentUser ? (
-								<Redirect to="/" />
-							) : (
-								<SignInSignUpPage />
-							)
-						}
-					/>
-				</Switch>
-			</div>
-		);
-	}
-}
+					render={() =>
+						currentUser ? <Redirect to="/" /> : <SignInSignUpPage />
+					}
+				/>
+			</Switch>
+		</div>
+	);
+};
 
 // Gain access to currentUser state
 // Syntactic sugar for Selectors as no need to explicitly type passing of state
