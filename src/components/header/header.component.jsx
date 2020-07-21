@@ -33,7 +33,7 @@ const Header = ({ currentUser, hidden }) => (
 		<OptionsContainer>
 			{/* Use react-router-dom in navigation */}
 			<OptionLink to="/shop">SHOP</OptionLink>
-			<OptionLink to="/contact">CONTACT</OptionLink>
+			{/* <OptionLink to="/contact">CONTACT</OptionLink> */}
 			{/* Ternary operator: If user is signed in, show Sign Out button.
             If user is signed out show Sign In button. Checked by looking at
             currentUser received from auth function in App.js */}
