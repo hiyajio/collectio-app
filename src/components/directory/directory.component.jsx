@@ -5,8 +5,6 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
 import MenuItem from "../menu-item/menu-item.component";
-// Bring in JSON data for menu items (Deprecated => moved to redux store)
-// import directoryData from "../../data/directory.json";
 
 import { selectDirectorySections } from "../../redux/directory/directory.selectors";
 

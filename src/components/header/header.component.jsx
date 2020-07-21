@@ -20,8 +20,6 @@ import {
 	OptionLink,
 } from "./header.styles";
 
-// import "./header.styles.scss" => Deprecated (converted sass to styled-components)
-
 // Destructuring 'prop' into their specific counterparts for syntactic sugar
 const Header = ({ currentUser, hidden, signOutStart }) => (
 	<HeaderContainer>

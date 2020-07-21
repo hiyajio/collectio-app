@@ -21,8 +21,6 @@ import {
 	WarningContainer,
 } from "./checkout.styles";
 
-// import "./checkout.styles.scss"; => Deprecated (converted sass to styled-components)
-
 // Destructuring 'prop' into their specific counterpart for syntactic sugar
 const CheckoutPage = ({ cartItems, total }) => (
 	<CheckoutPageContainer>

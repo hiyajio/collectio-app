@@ -8,9 +8,6 @@ import { connect } from "react-redux";
 
 import { fetchCollectionsStart } from "../../redux/shop/shop.actions";
 
-// Bring in JSON data for menu items (Deprecated => moved to redux store)
-// import shopData from "../../data/shop-data.json";
-
 import CollectionsOverviewContainer from "../../components/collections-overview/collections-overview.container";
 import CollectionPageContainer from "../collection/collection.container";
 

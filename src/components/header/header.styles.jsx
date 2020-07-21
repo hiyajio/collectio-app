@@ -3,12 +3,6 @@ import styled from "styled-components";
 // Needed for routing
 import { Link } from "react-router-dom";
 
-// Deprecated => refactor
-/* const OptionContainerStyles = css`
-	padding: 10px 15px;
-	cursor: pointer;
-`; */
-
 export const HeaderContainer = styled.div`
 	height: 70px;
 	width: 100%;

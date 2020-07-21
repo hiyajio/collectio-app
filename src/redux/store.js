@@ -4,9 +4,6 @@ import { createStore, applyMiddleware } from "redux";
 import logger from "redux-logger";
 
 // Needed to use redux for async actions
-// import thunk from "redux-thunk"; => Deprecated for redux-saga
-
-// Needed to use redux for async actions
 import createSageMiddleware from "redux-saga";
 
 // Needed for persisting store and caching it on local storage

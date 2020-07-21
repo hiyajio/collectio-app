@@ -19,8 +19,6 @@ import ShopPage from "./pages/shop/shop.page";
 import SignInSignUpPage from "./pages/sign-in-sign-up/sign-in-sign-up.page";
 import CheckoutPage from "./pages/checkout/checkout.page";
 
-// Bring in setCurrentUser action => Deprecated for redux-saga handling of sign in
-// import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 import { checkUserSession } from "./redux/user/user.actions";
 
@@ -80,9 +78,6 @@ class App extends Component {
 // Syntactic sugar for Selectors as no need to explicitly type passing of state
 const mapStateToProps = createStructuredSelector({
 	currentUser: selectCurrentUser,
-	/* Programatically add shop-data to Firebase ONCE
-	=> Deprecated since done already */
-	// collectionsArray: selectCollectionsForPreview,
 });
 
 // Update and dispatch global redux reducer to all listeners
