@@ -11,7 +11,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import "./App.css";
+import { GlobalStyle } from "./global.styles";
 
 import Header from "./components/header/header.component";
 import HomePage from "./pages/homepage/homepage.page";
@@ -45,6 +45,8 @@ class App extends Component {
 	render() {
 		return (
 			<div>
+				{/* User styled-components for global app-level styling */}
+				<GlobalStyle />
 				{/* By placing Header above Switch, this ensure it is only rendered once
 				and will stay regardless of which page is chosen */}
 				<Header />
