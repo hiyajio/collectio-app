@@ -2,7 +2,12 @@ import { takeLatest, put, all, call } from "redux-saga/effects";
 
 import UserActionTypes from "./user.types";
 
-import { signInSuccess, signInFailure } from "./user.actions";
+import {
+	signInSuccess,
+	signInFailure,
+	signOutSuccess,
+	signOutFailure,
+} from "./user.actions";
 
 import {
 	auth,
@@ -55,7 +60,7 @@ export function* signInWithEmail({ payload: { email, password } }) {
 	}
 }
 
-/* For local persistence i.e. if refresh or revisit to site w/o signing out,
+/* Saga for local persistence i.e. if refresh or revisit to site w/o signing out,
 still signed in */
 export function* isUserAuthenticated() {
 	try {
@@ -67,6 +72,19 @@ export function* isUserAuthenticated() {
 		yield getSnapshotFromUserAuth(userAuth);
 	} catch (error) {
 		yield put(signInFailure(error));
+	}
+}
+
+// Saga for sign out. Simply uses firebase out-of-the-box functions for signing out
+export function* signOut() {
+	try {
+		// Try signing out
+		yield auth.signOut();
+
+		// If successful, let app and everyone listening know about it
+		yield put(signOutSuccess());
+	} catch (error) {
+		yield put(signOutFailure(error));
 	}
 }
 
@@ -85,6 +103,11 @@ export function* onCheckUserSession() {
 	yield takeLatest(UserActionTypes.CHECK_USER_SESSION, isUserAuthenticated);
 }
 
+// Saga to listen and catch that user is currently trying to sign out
+export function* onSignOutStart() {
+	yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut);
+}
+
 /* all effect simply allows us to run multiple sagas at the same time since
 if we don't use it, we have to have multiple yields which won't allow us
 to run those sagas concurrently (yield == await) */
@@ -95,5 +118,6 @@ export function* userSagas() {
 		call(onGoogleSignInStart),
 		call(onEmailSignInStart),
 		call(onCheckUserSession),
+		call(onSignOutStart),
 	]);
 }

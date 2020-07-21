@@ -9,7 +9,6 @@ const INITIAL_STATE = {
 // Any and all reducers for user goes into this and is checked using switch case
 const userReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-		// Switch cases can actually stack (I did not know this was possible lol)
 		// Returns user if successful and resets null for next sign in attempt
 		case UserActionTypes.SIGN_IN_SUCCESS:
 			return {
@@ -17,8 +16,17 @@ const userReducer = (state = INITIAL_STATE, action) => {
 				currentUser: action.payload,
 				error: null,
 			};
+		// Resets currentUser and error to null for sign out action
+		case UserActionTypes.SIGN_OUT_SUCCESS:
+			return {
+				...state,
+				currentUser: null,
+				error: null,
+			};
+		// Switch cases can actually stack (I did not know this was possible lol)
 		// Returns error message if failure
 		case UserActionTypes.SIGN_IN_FAILURE:
+		case UserActionTypes.SIGN_OUT_FAILURE:
 			return {
 				...state,
 				error: action.payload,

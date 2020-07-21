@@ -5,25 +5,41 @@ export const googleSignInStart = () => ({
 	type: UserActionTypes.GOOGLE_SIGN_IN_START,
 });
 
-// Action that returns us the user and tells us we succeeded in Google Sign In
-export const signInSuccess = (user) => ({
-	type: UserActionTypes.SIGN_IN_SUCCESS,
-	payload: user,
-});
-
-// Action that returns us the error and tells us we failed in Google Sign In
-export const signInFailure = (error) => ({
-	type: UserActionTypes.SIGN_IN_FAILURE,
-	payload: error,
-});
-
-// Action for setting up Email Sign In through sagas
+// Action that returns the user for setting up Email Sign In through sagas
 export const emailSignInStart = (emailAndPassword) => ({
 	type: UserActionTypes.EMAIL_SIGN_IN_START,
 	payload: emailAndPassword,
 });
 
-// Action that fires local persistence check for sign in
+// Action that returns the user and tells us we succeeded in signing in
+export const signInSuccess = (user) => ({
+	type: UserActionTypes.SIGN_IN_SUCCESS,
+	payload: user,
+});
+
+// Action that returns the error and tells us we failed in signing in
+export const signInFailure = (error) => ({
+	type: UserActionTypes.SIGN_IN_FAILURE,
+	payload: error,
+});
+
+// Action that fires local persistence check if user has already signed in before
 export const checkUserSession = () => ({
 	type: UserActionTypes.CHECK_USER_SESSION,
+});
+
+// Action that fires sign out method through sagas
+export const signOutStart = () => ({
+	type: UserActionTypes.SIGN_OUT_START,
+});
+
+// Action that tells us we succeeded in signing out
+export const signOutSuccess = () => ({
+	type: UserActionTypes.SIGN_OUT_SUCCESS,
+});
+
+// Action that returns the error and tells us we failed in signing out
+export const signOutFailure = (error) => ({
+	type: UserActionTypes.SIGN_OUT_FAILURE,
+	payload: error,
 });
