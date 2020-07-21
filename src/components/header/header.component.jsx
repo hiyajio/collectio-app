@@ -38,6 +38,7 @@ const Header = ({ currentUser, hidden, signOutStart }) => (
             currentUser received from auth function in App.js */}
 			{currentUser ? (
 				<OptionLink as="div" onClick={signOutStart}>
+					{/* Start signOutStart saga */}
 					SIGN OUT
 				</OptionLink>
 			) : (

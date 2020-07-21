@@ -7,6 +7,8 @@ import {
 	signInFailure,
 	signOutSuccess,
 	signOutFailure,
+	signUpSuccess,
+	signUpFailure,
 } from "./user.actions";
 
 import {
@@ -20,11 +22,15 @@ import {
 previously in charge of GoogleSignIn functionality from App.js */
 // Sagas work through using generators (function* - yield syntax)
 // Saga for reusable getSnapshot from Firebase (user auth)
-export function* getSnapshotFromUserAuth(userAuth) {
+export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 	// try-catch since Firebase API calls might end in failure and async-await
 	try {
 		// Create the user profile from userAuth from snapshot
-		const userRef = yield call(createUserProfileDocument, userAuth);
+		const userRef = yield call(
+			createUserProfileDocument,
+			userAuth,
+			additionalData
+		);
 		const userSnapshot = yield userRef.get();
 
 		// If success, pass userSnapshot to id for app use
@@ -88,6 +94,28 @@ export function* signOut() {
 	}
 }
 
+// Saga for sign up. Simply uses firebase out-of-the-box functions for signing up
+export function* signUp({ payload: { email, password, displayName } }) {
+	try {
+		// Create user given the email and password from form field
+		const { user } = yield auth.createUserWithEmailAndPassword(
+			email,
+			password
+		);
+
+		// Create entire Profile using displayName
+		yield put(signUpSuccess({ user, additionalData: { displayName } }));
+	} catch (error) {
+		yield put(signUpFailure(error));
+	}
+}
+
+// Saga for signing in user after successful sign up (called in signUpSuccess)
+export function* signInAfterSignUp({ payload: { user, additionalData } }) {
+	// Calls sign in method we created at top of this file
+	yield getSnapshotFromUserAuth(user, additionalData);
+}
+
 // Saga to listen and catch that user is currently trying to Google Sign In
 export function* onGoogleSignInStart() {
 	yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
@@ -108,6 +136,16 @@ export function* onSignOutStart() {
 	yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut);
 }
 
+// Saga to listen and catch that user is currently trying to sign up
+export function* onSignUpStart() {
+	yield takeLatest(UserActionTypes.SIGN_UP_START, signUp);
+}
+
+// Saga to listen and catch that firebase has signed up user and should now sign in automatically
+export function* onSignUpSuccess() {
+	yield takeLatest(UserActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp);
+}
+
 /* all effect simply allows us to run multiple sagas at the same time since
 if we don't use it, we have to have multiple yields which won't allow us
 to run those sagas concurrently (yield == await) */
@@ -119,5 +157,7 @@ export function* userSagas() {
 		call(onEmailSignInStart),
 		call(onCheckUserSession),
 		call(onSignOutStart),
+		call(onSignUpStart),
+		call(onSignUpSuccess),
 	]);
 }

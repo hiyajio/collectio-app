@@ -43,3 +43,21 @@ export const signOutFailure = (error) => ({
 	type: UserActionTypes.SIGN_OUT_FAILURE,
 	payload: error,
 });
+
+// Action that fires sign up method through sagas
+export const signUpStart = (userCredentials) => ({
+	type: UserActionTypes.SIGN_UP_START,
+	payload: userCredentials,
+});
+
+// Action that returns the user + data and tells us we succeeded in signing up
+export const signUpSuccess = ({ user, additionalData }) => ({
+	type: UserActionTypes.SIGN_UP_SUCCESS,
+	payload: { user, additionalData },
+});
+
+// Action that returns the error and tells us we failed in signing up
+export const signUpFailure = (error) => ({
+	type: UserActionTypes.SIGN_UP_FAILURE,
+	payload: error,
+});

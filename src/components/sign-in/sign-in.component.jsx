@@ -35,6 +35,7 @@ class SignIn extends Component {
 		const { emailSignInStart } = this.props;
 		const { email, password } = this.state;
 
+		// Start emailSignInStart saga
 		emailSignInStart(email, password);
 	};
 
