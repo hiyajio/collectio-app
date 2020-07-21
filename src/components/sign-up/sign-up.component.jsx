@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 
+// Needed for redux state management
+import { connect } from "react-redux";
+
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
-// Needed functions for creating new user in database
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+import { signUpStart } from "../../redux/user/user.actions";
 
 import "./sign-up.styles.scss";
 
@@ -29,6 +31,7 @@ class SignUp extends Component {
 		// Override HTML default functions for custom one
 		event.preventDefault();
 
+		const { signUpStart } = this.props;
 		const { displayName, email, password, confirmPassword } = this.state;
 
 		// Don't do anything if passwords do not match
@@ -37,27 +40,12 @@ class SignUp extends Component {
 			return;
 		}
 
-		// try-catch block since using await function
-		try {
-			// Create user given the email and password from form field
-			const { user } = await auth.createUserWithEmailAndPassword(
-				email,
-				password
-			);
-
-			// Create entire Profile using displayName
-			await createUserProfileDocument(user, { displayName });
-
-			// Reset form field on App since successful sign up
-			this.setState({
-				displayName: "",
-				email: "",
-				password: "",
-				confirmPassword: "",
-			});
-		} catch (error) {
-			console.error(error);
-		}
+		// Start signUpStart saga
+		signUpStart({
+			displayName,
+			email,
+			password,
+		});
 	};
 
 	/* Custom handleChange function (called when form fields change i.e.
@@ -119,4 +107,10 @@ class SignUp extends Component {
 	}
 }
 
-export default SignUp;
+// Update and dispatch global redux reducer to all listeners
+const mapDispatchToProps = (dispatch) => ({
+	signUpStart: (userCredentials) => dispatch(signUpStart(userCredentials)),
+});
+
+// Pass it again since one-way data flow
+export default connect(null, mapDispatchToProps)(SignUp);

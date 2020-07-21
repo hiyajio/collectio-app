@@ -6,7 +6,7 @@ import { Route } from "react-router-dom";
 // Needed for redux state management
 import { connect } from "react-redux";
 
-import { fetchCollectionsStartAsync } from "../../redux/shop/shop.actions";
+import { fetchCollectionsStart } from "../../redux/shop/shop.actions";
 
 // Bring in JSON data for menu items (Deprecated => moved to redux store)
 // import shopData from "../../data/shop-data.json";
@@ -22,8 +22,8 @@ class ShopPage extends Component {
 
 	componentDidMount() {
 		// Start collection fetch as soon as mount
-		const { fetchCollectionsStartAsync } = this.props;
-		fetchCollectionsStartAsync();
+		const { fetchCollectionsStart } = this.props;
+		fetchCollectionsStart();
 	}
 
 	render() {
@@ -52,7 +52,7 @@ class ShopPage extends Component {
 
 // Update and dispatch global redux reducer to all listeners
 const mapDispatchToProps = (dispatch) => ({
-	fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync()),
+	fetchCollectionsStart: () => dispatch(fetchCollectionsStart()),
 });
 
 // Pass it again since one-way data flow
