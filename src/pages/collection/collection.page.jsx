@@ -13,8 +13,6 @@ import {
 	CollectionItemsContainer,
 } from "./collection.styles";
 
-// import "./collection.styles.scss"; => Deprecated (converted sass to styled-components)
-
 // Destructuring 'prop' into their specific counterpart for syntactic sugar
 const CollectionPage = ({ collection }) => {
 	// Further destructuring to gain access to specific props

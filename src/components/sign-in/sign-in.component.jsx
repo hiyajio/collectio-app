@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
 // Needed for redux state management
 import { connect } from "react-redux";
@@ -13,27 +13,18 @@ import {
 
 import "./sign-in.styles.scss";
 
-// Component is needed since we need to take note of state
-class SignIn extends Component {
-	// Class component declaration and use
-	constructor(props) {
-		// Used for passing props
-		super(props);
+// Convert previous Class component to Hooks through useState
+const SignIn = ({ emailSignInStart, googleSignInStart }) => {
+	const [userCredentials, setCredentials] = useState({
+		email: "",
+		password: "",
+	});
 
-		// Used to template state
-		this.state = {
-			email: "",
-			password: "",
-		};
-	}
-
+	const { email, password } = userCredentials;
 	// Custom handleSubmit function (called when button is clicked)
-	handleSubmit = async (event) => {
+	const handleSubmit = async (event) => {
 		// Override HTML default functions for custom one
 		event.preventDefault();
-
-		const { emailSignInStart } = this.props;
-		const { email, password } = this.state;
 
 		// Start emailSignInStart saga
 		emailSignInStart(email, password);
@@ -41,55 +32,52 @@ class SignIn extends Component {
 
 	/* Custom handleChange function (called when form fields change i.e.
     when users type in them) */
-	handleChange = (event) => {
+	const handleChange = (event) => {
 		// Templated use-case so can use on multiple unique form fields
 		const { value, name } = event.target;
 
-		this.setState({ [name]: value });
+		setCredentials({ ...userCredentials, [name]: value });
 	};
 
-	render() {
-		const { googleSignInStart } = this.props;
-		return (
-			<div className="sign-in">
-				<h2>I already have an account</h2>
-				<span>Sign in with your email and password</span>
+	return (
+		<div className="sign-in">
+			<h2>I already have an account</h2>
+			<span>Sign in with your email and password</span>
 
-				{/* Using custom handleSubmit function */}
-				<form onSubmit={this.handleSubmit}>
-					{/* Using FormInput component for more functionality.
+			{/* Using custom handleSubmit function */}
+			<form onSubmit={handleSubmit}>
+				{/* Using FormInput component for more functionality.
                     Using custom handleChange function */}
-					<FormInput
-						name="email"
-						type="email"
-						value={this.state.email}
-						handleChange={this.handleChange}
-						label="email"
-						required
-					/>
-					<FormInput
-						name="password"
-						type="password"
-						value={this.state.password}
-						handleChange={this.handleChange}
-						label="password"
-						required
-					/>
-					<div className="buttons">
-						{/* Using CustomButton component for more functionality */}
-						<CustomButton type="submit">Sign In</CustomButton>
-						{/* Using signInWithGoogle initialize in utils for OAuth */}
-						<CustomButton
-							type="button"
-							onClick={googleSignInStart}
-							isGoogleSignIn
-						></CustomButton>
-					</div>
-				</form>
-			</div>
-		);
-	}
-}
+				<FormInput
+					name="email"
+					type="email"
+					value={email}
+					handleChange={handleChange}
+					label="email"
+					required
+				/>
+				<FormInput
+					name="password"
+					type="password"
+					value={password}
+					handleChange={handleChange}
+					label="password"
+					required
+				/>
+				<div className="buttons">
+					{/* Using CustomButton component for more functionality */}
+					<CustomButton type="submit">Sign In</CustomButton>
+					{/* Using signInWithGoogle initialize in utils for OAuth */}
+					<CustomButton
+						type="button"
+						onClick={googleSignInStart}
+						isGoogleSignIn
+					></CustomButton>
+				</div>
+			</form>
+		</div>
+	);
+};
 
 // Update and dispatch global redux reducer to all listeners
 const mapDispatchToProps = (dispatch) => ({

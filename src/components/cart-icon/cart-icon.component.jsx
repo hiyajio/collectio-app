@@ -8,7 +8,7 @@ import { toggleCartHidden } from "../../redux/cart/cart.actions";
 import { selectCartItemsCount } from "../../redux/cart/cart.selectors";
 
 // Syntax for using SVG as component in react
-import { ReactComponent as ShoppingIcon } from "../../assets/shopping-bag.svg";
+import { ReactComponent as ShoppingIcon } from "../../assets/shopping-cart.svg";
 
 import "./cart-icon.styles.scss";
 

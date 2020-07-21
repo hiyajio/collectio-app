@@ -6,8 +6,6 @@ import SignUp from "../../components/sign-up/sign-up.component";
 // Needed for styled-components styling
 import { SignInSignUpContainer } from "./sign-in-sign-up.styles";
 
-// import "./sign-in-sign-up.styles.scss"; => Deprecated (converted sass to styled-components)
-
 const SignInSignUpPage = () => (
 	<SignInSignUpContainer>
 		<SignIn />

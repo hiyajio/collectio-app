@@ -5,12 +5,6 @@ import {
 	convertCollectionsSnapshotToMap,
 } from "../../firebase/firebase.utils";
 
-// Action for updating (showing to front end) Collections from Firebase retrieval
-/* export const updateCollections = (collectionsMap) => ({ => Deprecated for redux-thunk
-	type: ShopActionTypes.UPDATE_COLLECTIONS,
-	payload: collectionsMap,
-}); */
-
 // Action that simply switches our isFetching to true
 export const fetchCollectionsStart = () => ({
 	type: ShopActionTypes.FETCH_COLLECTIONS_START,
@@ -37,16 +31,12 @@ export const fetchCollectionsStartAsync = () => {
 		// Start fetch function
 		dispatch(fetchCollectionsStart());
 
-		/* Push snapshop (current status of database) to util function
-		to be converted for front end use */
 		collectionRef
 			.get()
 			.then((snapshot) => {
 				const collectionsMap = convertCollectionsSnapshotToMap(
 					snapshot
 				);
-				/* updateCollections(collectionsMap);
-				this.setState({ loading: false }); => Deprecated for redux-thunk */
 				// Success function
 				dispatch(fetchCollectionsSuccess(collectionsMap));
 			})

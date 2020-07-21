@@ -26,7 +26,7 @@ export function* fetchCollectionsAsync() {
 
 		/* Essentially think of this as a promise wherein the yield waits for it to
 		receive data before continuing with code (async-await) */
-		// Easier to think of 'yielf' as 'await'
+		// Easier to think of 'yield' as 'await'
 		const snapshot = yield collectionRef.get();
 
 		// call effect takes in 2 parameters: the function and the input for that function
@@ -48,10 +48,6 @@ export function* fetchCollectionsStart() {
 	generators, you cannot call the generator within it to loop through it again,
 	but what takeEvery does is that it simply calls the generator each time it
 	fires (think recursion instead of loop) */
-	/* yield takeEvery(
-		ShopActionTypes.FETCH_COLLECTIONS_START,
-		fetchCollectionsAsync
-	); => Deprecated for takeLatest */
 
 	/* takeLatest does what takeEvery does except more efficiently as it only
 	resolves the latest call */
