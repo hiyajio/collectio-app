@@ -1,6 +1,6 @@
 import { all, call } from "redux-saga/effects";
 
-import { fetchCollectionsStart } from "./shop/shop.sagas";
+import { shopSagas } from "./shop/shop.sagas";
 import { userSagas } from "./user/user.sagas";
 import { cartSagas } from "./cart/cart.sagas";
 
@@ -11,5 +11,5 @@ export default function* rootSaga() {
     to run those sagas concurrently (yield == await) */
 	/* call effect is essentially a function call. Syntax below is equivalent to
     fetchCollectionsStart() => Still works, this is just the saga way of doing things */
-	yield all([call(fetchCollectionsStart), call(userSagas), call(cartSagas)]);
+	yield all([call(shopSagas), call(userSagas), call(cartSagas)]);
 }
