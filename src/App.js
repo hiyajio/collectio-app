@@ -19,8 +19,8 @@ import ShopPage from "./pages/shop/shop.page";
 import SignInSignUpPage from "./pages/sign-in-sign-up/sign-in-sign-up.page";
 import CheckoutPage from "./pages/checkout/checkout.page";
 
-// Bring in setCurrentUser action
-import { setCurrentUser } from "./redux/user/user.actions";
+// Bring in setCurrentUser action => Deprecated for redux-saga handling of sign in
+// import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 
 /* Programatically add shop-data to Firebase ONCE
@@ -114,9 +114,9 @@ const mapStateToProps = createStructuredSelector({
 });
 
 // Update and dispatch global redux reducer to all listeners
-const mapDispatchToProps = (dispatch) => ({
-	setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+// setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+// }); => Deprecated for redux-saga handling of sign in
 
 // Pass it again since one-way data flow
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
