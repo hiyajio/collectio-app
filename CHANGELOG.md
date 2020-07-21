@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [[0.3.0]] - 2020-07-20
+### Added
+- Integrate redux-saga to all async and firebase functions
+- Compile all firebase functions in frontend to sagas or utils
+- Add clear cart at sign out method for security
+- Add auto sign in after sign up method for redirection and user ease
+
 ## [[0.2.0]] - 2020-07-08
 ### Added
 - Implement Redux and cart functionality
@@ -22,3 +29,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Firebase authentication and user storage through google oauth, email and password sign up/sign in
 
 [0.2.0]: https://github.com/lockjio/collectio-site/releases/tag/v0.2.0
+[0.3.0]: https://github.com/lockjio/collectio-site/compare/v0.2.0...v0.3.0
