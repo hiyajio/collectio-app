@@ -1,13 +1,5 @@
 import UserActionTypes from "./user.types";
 
-// Action for setting current user (know who's logging in)
-// export const setCurrentUser = (user) => ({
-/* Simply sets type and payload so reducer knows what action it is and
-    does the appropriate state change */
-// type: UserActionTypes.SET_CURRENT_USER,
-// payload: user,
-// }); => Deprecated for redux-saga handling of google + email sign in
-
 // Action for setting up Google Sign In through sagas
 export const googleSignInStart = () => ({
 	type: UserActionTypes.GOOGLE_SIGN_IN_START,
@@ -29,4 +21,9 @@ export const signInFailure = (error) => ({
 export const emailSignInStart = (emailAndPassword) => ({
 	type: UserActionTypes.EMAIL_SIGN_IN_START,
 	payload: emailAndPassword,
+});
+
+// Action that fires local persistence check for sign in
+export const checkUserSession = () => ({
+	type: UserActionTypes.CHECK_USER_SESSION,
 });

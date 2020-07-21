@@ -8,6 +8,7 @@ import {
 	auth,
 	googleProvider,
 	createUserProfileDocument,
+	getCurrentUser,
 } from "../../firebase/firebase.utils";
 
 /* Sagas use effects in order to listen and essentially replaces the action
@@ -54,14 +55,34 @@ export function* signInWithEmail({ payload: { email, password } }) {
 	}
 }
 
-// Saga to catch and understand that user is currently trying to Google Sign In
+/* For local persistence i.e. if refresh or revisit to site w/o signing out,
+still signed in */
+export function* isUserAuthenticated() {
+	try {
+		// Given firebase method from firebase.utils
+		const userAuth = yield getCurrentUser();
+		// Quick release valve if there has been no prior user
+		if (!userAuth) return;
+		// If there is, get the user from firebase again
+		yield getSnapshotFromUserAuth(userAuth);
+	} catch (error) {
+		yield put(signInFailure(error));
+	}
+}
+
+// Saga to listen and catch that user is currently trying to Google Sign In
 export function* onGoogleSignInStart() {
 	yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
 }
 
-// Saga to catch and understand that user is currently trying to Email Sign In
+// Saga to listen and catch that user is currently trying to Email Sign In
 export function* onEmailSignInStart() {
 	yield takeLatest(UserActionTypes.EMAIL_SIGN_IN_START, signInWithEmail);
+}
+
+// Saga to listen and catch that user has perviously signed in and hasn't signed out
+export function* onCheckUserSession() {
+	yield takeLatest(UserActionTypes.CHECK_USER_SESSION, isUserAuthenticated);
 }
 
 /* all effect simply allows us to run multiple sagas at the same time since
@@ -70,5 +91,9 @@ to run those sagas concurrently (yield == await) */
 export function* userSagas() {
 	/* call effect is essentially a function call. Syntax below is equivalent to
     fetchCollectionsStart() => Still works, this is just the saga way of doing things */
-	yield all([call(onGoogleSignInStart), call(onEmailSignInStart)]);
+	yield all([
+		call(onGoogleSignInStart),
+		call(onEmailSignInStart),
+		call(onCheckUserSession),
+	]);
 }

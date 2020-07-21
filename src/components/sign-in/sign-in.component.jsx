@@ -36,15 +36,6 @@ class SignIn extends Component {
 		const { email, password } = this.state;
 
 		emailSignInStart(email, password);
-
-		// try {
-		// Create user given the email and password from form field
-		// await auth.signInWithEmailAndPassword(email, password);
-		// Reset form field on App since successful sign in
-		// this.setState({ email: "", password: "" });
-		// } catch (error) {
-		// console.log(error);
-		// }
 	};
 
 	/* Custom handleChange function (called when form fields change i.e.

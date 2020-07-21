@@ -109,6 +109,17 @@ export const convertCollectionsSnapshotToMap = (collections) => {
 	}, {});
 };
 
+// Since no backend, this simply allows us to persist the user between multiple sessions
+export const getCurrentUser = () => {
+	return new Promise((resolve, reject) => {
+		// Allows us to immediately unsubscribe from listener as soon as we get user
+		const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+			unsubscribe();
+			resolve(userAuth);
+		}, reject);
+	});
+};
+
 // Export for auth and firestore access
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();

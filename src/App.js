@@ -22,10 +22,7 @@ import CheckoutPage from "./pages/checkout/checkout.page";
 // Bring in setCurrentUser action => Deprecated for redux-saga handling of sign in
 // import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
-
-/* Programatically add shop-data to Firebase ONCE
-=> Deprecated since done already */
-// import { selectCollectionsForPreview } from "./redux/shop/shop.selectors";
+import { checkUserSession } from "./redux/user/user.actions";
 
 // Need to turn into Component since need to keep track of state for OAuth
 class App extends Component {
@@ -35,35 +32,8 @@ class App extends Component {
 	/* Custom componentDidMount function (called when component successfully
 	loads after getting called) */
 	componentDidMount() {
-		/* Programatically add shop-data to Firebase ONCE
-		=> Deprecated since done already */
-		// Destructuring 'prop' into their specific counterpart for syntactic sugar
-		// const { setCurrentUser collectionsArray } = this.props;
-		/* Used for user persistence. Once signed in, if they did not sign out,
-		next visit they will still be signed in. Also store user in database. */
-		// this.unsubcribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-		// If successfully retrieved or created user in database
-		// if (userAuth) {
-		// const userRef = await createUserProfileDocument(userAuth);
-		/* Backend to frontend transfer: Using the current state or
-				"Snapshot" of that user, we simple set the state of
-				currentUser to it */
-		// userRef.onSnapshot((snapShot) => {
-		// Update current state of app as well
-		// setCurrentUser({
-		// id: snapShot.id,
-		// ...snapShot.data(),
-		// });
-		// });
-		// } else {
-		/* Checks for no user and sets it to null i.e. no one signed in
-				Update current state of app as well */
-		// setCurrentUser(userAuth);
-		/* Programatically add shop-data to Firebase ONCE
-				=> Deprecated since done already */
-		// addCollectionAndDocuments("collections", collectionsArray);
-		// }
-		// }); => Deprecated for promise pattern taken care of by sagas
+		const { checkUserSession } = this.props;
+		checkUserSession();
 	}
 
 	// Custom componentWillUnmount function for unsubscribing event listener
@@ -114,9 +84,9 @@ const mapStateToProps = createStructuredSelector({
 });
 
 // Update and dispatch global redux reducer to all listeners
-// const mapDispatchToProps = (dispatch) => ({
-// setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-// }); => Deprecated for redux-saga handling of sign in
+const mapDispatchToProps = (dispatch) => ({
+	checkUserSession: () => dispatch(checkUserSession()),
+});
 
 // Pass it again since one-way data flow
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
