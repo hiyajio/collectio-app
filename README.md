@@ -1,68 +1,30 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Collectio Comics e-Commerce Web & Mobile Apps
 
-## Available Scripts
+e-Commerce web + mobile app project for makeshift client Collectio Comics for ND CSE SU '20 Modern Web and App Development I.
 
-In the project directory, you can run:
+## Tech Stack
 
-### `yarn start`
+* __Frontend__ - React through [Create React App](https://github.com/facebook/create-react-app) with [Hooks](https://reactjs.org/docs/hooks-intro.html) and [React-Router](https://reactrouter.com/web/guides/quick-start) for routing.  
+* __State Management__ - [Redux](https://redux.js.org/introduction/getting-started) with [Redux-Saga](https://redux-saga.js.org/docs/introduction/BeginnerTutorial.html) (previously [Redux-Thunk](https://github.com/reduxjs/redux-thunk))  
+* __Database__ - NoSQL using [Firebase](https://firebase.google.com/)  
+* __Styling__ - Hybrid between [Sass/SCSS](https://sass-lang.com/documentation) and CSS in JS using [styled-components](https://styled-components.com/docs)  
+* __API/s__ - Payment through [Stripe](https://stripe.com/docs/api)  
+* __Deployment__ - CI/CD and hosting through [Netlify](https://www.netlify.com/)  
+* __Mobile__ - Hybrid (iOS + Android) mobile app wrapper through [Capacitor](https://capacitorjs.com/docs/getting-started)  
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Web Set Up
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+1. Either download the codebase or clone the repo for your own personal copy.
+2. Within your own personal copy, at the root directory, do the `yarn` or `yarn install` commands to download the necessary dependencies.
+3. Then, do `yarn start` to start the development environment. This will be viewable through the browser in [http://localhost:3000](http://localhost:3000).
+4. You can do a `yarn build` to create a production-ready version of the app ready for deployment. This will create the `build/` folder.
 
-### `yarn test`
+## Mobile Set Up
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> __Note__: You must go through the Web setup first before going through mobile as the mobile apps are wrappers for the React web app using Capacitor
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+1. You must do a `yarn build` in the root directory for the production-ready version of the web app. This will be needed by the mobile setup.
+2. The `capacitor.config.json` file is looking specifically at the `build/` folder for the web app. With this done and the `yarn` or `yarn install` commands done from the web setup, you now have access to the Capacitor CLI tools. Simply do a `yarn cap sync` or `yarn cap copy` in the root directory of the codebase.
+3. The previous commands should have updated both the `ios/` and `android/` folders. From here, you can choose to either open the ios or android app through either `yarn cap open ios` (MacOS + XCode are required as this command will the app project codebase in XCode) or `yarn cap open android` (any OS should work and only Android Studio is required as this opens the app project codebase in Android Studio), respectively.
+4. If the iOS app is created, choose the respective iOS device simulator (iPhone SE 2nd Generation should be the least GPU intensive) in XCode and click the run button. You must have a proper certificate for it to run. If you want to run it on an actual physical iOS device, you must have a proper certificate.
+5. If the Android app is created, you must create an Android simulator configuration within Android Studio, then choose that (Nexus 6 API 28 should be the least GPU intensive). Click the build button and once that is successful, click the run button.
