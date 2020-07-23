@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "705001905488",
+    "firebase_url": "https://collectio-db-b1acf.firebaseio.com",
+    "project_id": "collectio-db-b1acf",
+    "storage_bucket": "collectio-db-b1acf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705001905488:android:aa7c8cfd01ac6699bd6055",
+        "android_client_info": {
+          "package_name": "com.jbuenviaje.collectio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705001905488-c3nu09sgnbgipstuljulc7kc7t45k0bg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZeA02W161faLvfTZBBIzdQGwoOm38Hjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705001905488-c3nu09sgnbgipstuljulc7kc7t45k0bg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "705001905488-2or76vtas618vao1oiom6kqsqnpfpnsf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jbuenviaje.collectio"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
