@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [[0.4.0]] - 2020-07-23
+### Added
+- Redesign and finish mobile responsive styling through styled-components
+- Redesign of icons, code comments cleanup, React Hooks adoption
+- Finish iOS and android build through Capacitor, update readme
+
 ## [[0.3.0]] - 2020-07-20
 ### Added
 - Integrate redux-saga to all async and firebase functions
@@ -30,3 +36,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [0.2.0]: https://github.com/lockjio/collectio-site/releases/tag/v0.2.0
 [0.3.0]: https://github.com/lockjio/collectio-site/compare/v0.2.0...v0.3.0
+[0.4.0]: https://github.com/lockjio/collectio-site/compare/v0.3.0...v0.4.0
