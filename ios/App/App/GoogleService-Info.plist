@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>705001905488-2or76vtas618vao1oiom6kqsqnpfpnsf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.705001905488-2or76vtas618vao1oiom6kqsqnpfpnsf</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCh2AEFzgDjo_5KIr-kFKHk_Uxo8wT0scQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>705001905488</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.jbuenviaje.collectio</string>
+	<key>PROJECT_ID</key>
+	<string>collectio-db-b1acf</string>
+	<key>STORAGE_BUCKET</key>
+	<string>collectio-db-b1acf.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:705001905488:ios:380caef853be8307bd6055</string>
+	<key>DATABASE_URL</key>
+	<string>https://collectio-db-b1acf.firebaseio.com</string>
+</dict>
+</plist>
