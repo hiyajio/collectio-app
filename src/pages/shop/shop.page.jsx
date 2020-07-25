@@ -30,7 +30,7 @@ const CollectionPageContainer = lazy(() =>
 );
 
 // Add Hooks through useEffect (== componentDidMount)
-const ShopPage = ({ fetchCollectionsStart, match }) => {
+export const ShopPage = ({ fetchCollectionsStart, match }) => {
 	// Need to put fetchCollectionsStart in array so not called (re-rendered) twice
 	useEffect(() => {
 		fetchCollectionsStart();
