@@ -35,12 +35,13 @@ e-Commerce web + mobile app project for makeshift client Collectio Comics for ND
 * __`buenviaje-react-performance`__ (already pulled into master but branch still exists - not deleted after merge)
 
 ### Feature: React Performance
-* React Lazy + Suspense for page and shop-item preview lazy-loading and Error Boundary for page routes 404s
+* React Lazy + Suspense for page and shop-item preview dynamic retrieval lazy-loading
+* Error Boundary for error-handling dynamic page route retrieval when lazy-loading
 
 ### How To Install & Run
 Within the feature branch root directory, simply follow the [Web Set Up](#web-set-up) above. Doing it from master would be fine as this will be the latest merge, but you can also download the code from the branch and then proceed with Steps 2-4.
-* Main things to take away from Steps 2-4 is that be sure to be in the root directory, and then do `yarn` or `yarn install` (for install) before doing a `yarn start` (for run) to view the development environment through the browser at [http://localhost:3000](http://localhost:3000).
-> Note: You can largely ignore the mobile folders and assets as those would not impede a regular web development environment.
+* Main things to take away from Steps 2-4 is that be sure to be in the root directory, and then do `yarn` or `yarn install` (for Install) before doing a `yarn start` (for Run) to view the development environment through the browser at [http://localhost:3000](http://localhost:3000).
+> __Note__: You can largely ignore the mobile folders and assets as those would not impede a regular web development environment.
 
 ### Expected Functionality
 1. React Lazy + Suspense  
