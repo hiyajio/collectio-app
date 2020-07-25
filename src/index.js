@@ -10,6 +10,9 @@ import { Provider } from "react-redux";
 // Needed for persisting store and caching it on local storage
 import { PersistGate } from "redux-persist/integration/react";
 
+// Connect serviceWorker for PWA optimization
+import * as serviceWorker from "./serviceWorker";
+
 import "./index.css";
 import App from "./App";
 
@@ -30,3 +33,6 @@ ReactDOM.render(
 	</Provider>,
 	document.getElementById("root")
 );
+
+// Register serviceWorker for PWA optimization
+serviceWorker.register();

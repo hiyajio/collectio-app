@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+// Needed new imports of lazy and Suspense (HOC) for page lazy-loading
+import React, { useEffect, lazy, Suspense } from "react";
 
 // Needed for firebase authentication and database
 import "firebase/firestore";
@@ -13,14 +14,30 @@ import { createStructuredSelector } from "reselect";
 
 import { GlobalStyle } from "./global.styles";
 
-import Header from "./components/header/header.component";
-import HomePage from "./pages/homepage/homepage.page";
-import ShopPage from "./pages/shop/shop.page";
-import SignInSignUpPage from "./pages/sign-in-sign-up/sign-in-sign-up.page";
-import CheckoutPage from "./pages/checkout/checkout.page";
-
 import { selectCurrentUser } from "./redux/user/user.selectors";
 import { checkUserSession } from "./redux/user/user.actions";
+
+import Header from "./components/header/header.component";
+
+// New import - will be fallback component as we retrieve page lazily
+import Spinner from "./components/spinner/spinner.component";
+
+// New import - HOC for catching error if async-await page lazy-loading throws one
+import ErrorBoundary from "./components/error-boundary/error-boundary.component";
+
+// DEPRECATED => imports must be replaced by lazy import in order to enable lazy-loading
+// import HomePage from "./pages/homepage/homepage.page"
+// import ShopPage from "./pages/shop/shop.page";
+// import SignInSignUpPage from "./pages/sign-in-sign-up/sign-in-sign-up.page";
+// import CheckoutPage from "./pages/checkout/checkout.page";
+
+// React way of lazy-loading images (remember: async, so must be used in conjuction with Suspense which awaits)
+const HomePage = lazy(() => import("./pages/homepage/homepage.page"));
+const ShopPage = lazy(() => import("./pages/shop/shop.page"));
+const SignInSignUpPage = lazy(() =>
+	import("./pages/sign-in-sign-up/sign-in-sign-up.page")
+);
+const CheckoutPage = lazy(() => import("./pages/checkout/checkout.page"));
 
 // Add Hooks through useEffect (== componentDidMount)
 const App = ({ checkUserSession, currentUser }) => {
@@ -40,18 +57,33 @@ const App = ({ checkUserSession, currentUser }) => {
 				will be rendered. Think of it as a switch case or chained if-else
 				statements */}
 			<Switch>
-				<Route exact path="/" component={HomePage} />
-				<Route path="/shop" component={ShopPage} />
-				<Route exact path="/checkout" component={CheckoutPage} />
-				<Route
-					exact
-					path="/signin"
-					/* If user logged in already, deny access to sign in page.
-						Also, redirect to home page if once signed in */
-					render={() =>
-						currentUser ? <Redirect to="/" /> : <SignInSignUpPage />
-					}
-				/>
+				{/* Suspense and lazy imports are async-await. ErrorBoundary is try-catch block for error*/}
+				<ErrorBoundary>
+					{/* Suspense - "await" equivalent with fallback component as it loads*/}
+					<Suspense fallback={<Spinner />}>
+						{/* Each lazy-loading import is essentially "async" so must be w/in "await" or Suspense*/}
+						<Route exact path="/" component={HomePage} />
+						<Route path="/shop" component={ShopPage} />
+						<Route
+							exact
+							path="/checkout"
+							component={CheckoutPage}
+						/>
+						<Route
+							exact
+							path="/signin"
+							/* If user logged in already, deny access to sign in page.
+				Also, redirect to home page if once signed in */
+							render={() =>
+								currentUser ? (
+									<Redirect to="/" />
+								) : (
+									<SignInSignUpPage />
+								)
+							}
+						/>
+					</Suspense>
+				</ErrorBoundary>
 			</Switch>
 		</div>
 	);

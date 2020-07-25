@@ -1,21 +1,12 @@
 import React from "react";
 
-// Needed for styled-components styling
-import { SpinnerContainer, SpinnerOverlay } from "./with-spinner.styles";
+// Refactored Spinner out of WithSpinner so we can use the non-HOC version for page lazy-loading
+import Spinner from "../spinner/spinner.component";
 
 // HOC: Give it component to return same component w "attachments"/"enhancements"
-const WithSpinner = (WrappedComponent) => {
+const WithSpinner = (WrappedComponent) => ({ isLoading, ...otherProps }) => {
 	// Ternary operator: If loading, show spinner, else, show actual component
-	const Spinner = ({ isLoading, ...otherProps }) => {
-		return isLoading ? (
-			<SpinnerOverlay>
-				<SpinnerContainer />
-			</SpinnerOverlay>
-		) : (
-			<WrappedComponent {...otherProps} />
-		);
-	};
-	return Spinner;
+	return isLoading ? <Spinner /> : <WrappedComponent {...otherProps} />;
 };
 
 export default WithSpinner;
