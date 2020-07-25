@@ -1,11 +1,19 @@
-import React from "react";
+// Needed new imports of lazy and Suspense (HOC) for page lazy-loading
+import React, { lazy, Suspense } from "react";
 
 // Needed for routing
 import { withRouter } from "react-router-dom";
 
-import CollectionItem from "../collection-item/collection-item.component";
-
 import "./collection-preview.styles.scss";
+
+// New import - will be fallback component as we retrieve page lazily
+import Spinner from "../../components/spinner/spinner.component";
+
+// DEPRECATED => imports must be replaced by lazy import in order to enable lazy-loading
+// import CollectionItem from "../collection-item/collection-item.component";
+const CollectionItem = lazy(() =>
+	import("../collection-item/collection-item.component")
+);
 
 // Destructuring 'prop' into their specific counterparts for syntactic sugar
 const CollectionPreview = ({ title, items, history, match, routeName }) => (
@@ -23,7 +31,10 @@ const CollectionPreview = ({ title, items, history, match, routeName }) => (
 			{items
 				.filter((item, index) => index < 4)
 				.map((item) => (
-					<CollectionItem key={item.id} item={item} />
+					<Suspense fallback={<Spinner />}>
+						{/* Each lazy-loading import is essentially "async" so must be w/in "await" or Suspense*/}
+						<CollectionItem key={item.id} item={item} />
+					</Suspense>
 				))}
 		</div>
 	</div>
