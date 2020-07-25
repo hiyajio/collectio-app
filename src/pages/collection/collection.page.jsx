@@ -15,6 +15,9 @@ import {
 
 // Destructuring 'prop' into their specific counterpart for syntactic sugar
 const CollectionPage = ({ collection }) => {
+	// UNCOMMENT BELOW to test ErrorBoundary feature
+	// throw Error;
+
 	// Further destructuring to gain access to specific props
 	const { title, items } = collection;
 	return (

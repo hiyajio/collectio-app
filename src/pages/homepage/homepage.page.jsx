@@ -9,6 +9,7 @@ import { HomePageContainer } from "./homepage.styles";
 const HomePage = () => {
 	// UNCOMMENT BELOW to test ErrorBoundary feature
 	// throw Error;
+
 	return (
 		<HomePageContainer>
 			<Directory />
