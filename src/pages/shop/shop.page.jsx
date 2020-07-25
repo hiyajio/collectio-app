@@ -13,7 +13,7 @@ import { fetchCollectionsStart } from "../../redux/shop/shop.actions";
 import Spinner from "../../components/spinner/spinner.component";
 
 // New import - HOC for catching error if async-await page lazy-loading throws one
-import ErrorBoundary from "./components/error-boundary/error-boundary.component";
+import ErrorBoundary from "../../components/error-boundary/error-boundary.component";
 
 // DEPRECATED => imports must be replaced by lazy import in order to enable lazy-loading
 // import CollectionsOverviewContainer from "../../components/collections-overview/collections-overview.container";
