@@ -22,7 +22,7 @@ import {
 } from "./checkout.styles";
 
 // Destructuring 'prop' into their specific counterpart for syntactic sugar
-const CheckoutPage = ({ cartItems, total }) => (
+export const CheckoutPage = ({ cartItems, total }) => (
 	<CheckoutPageContainer>
 		<CheckoutHeaderContainer>
 			<HeaderBlockContainer>
