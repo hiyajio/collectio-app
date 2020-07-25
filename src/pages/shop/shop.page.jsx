@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+// Needed new imports of lazy and Suspense for page lazy-loading
+import React, { useEffect, lazy, Suspense } from "react";
 
 // Needed for routing
 import { Route } from "react-router-dom";
@@ -8,8 +9,22 @@ import { connect } from "react-redux";
 
 import { fetchCollectionsStart } from "../../redux/shop/shop.actions";
 
-import CollectionsOverviewContainer from "../../components/collections-overview/collections-overview.container";
-import CollectionPageContainer from "../collection/collection.container";
+// New import - will be fallback component as we retrieve page lazily
+import Spinner from "../../components/spinner/spinner.component";
+
+// DEPRECATED => imports must be replaced by lazy import in order to enable lazy-loading
+// import CollectionsOverviewContainer from "../../components/collections-overview/collections-overview.container";
+// import CollectionPageContainer from "../collection/collection.container";
+
+// React way of lazy-loading images (remember: async, so must be used in conjuction with Suspense which awaits)
+const CollectionsOverviewContainer = lazy(() =>
+	import(
+		"../../components/collections-overview/collections-overview.container"
+	)
+);
+const CollectionPageContainer = lazy(() =>
+	import("../collection/collection.container")
+);
 
 // Add Hooks through useEffect (== componentDidMount)
 const ShopPage = ({ fetchCollectionsStart, match }) => {
@@ -20,18 +35,22 @@ const ShopPage = ({ fetchCollectionsStart, match }) => {
 
 	return (
 		<div className="shop-page">
-			<Route
-				exact
-				path={`${match.path}`}
-				// Return HOC showing a spinner until all data is loaded from firebase
-				component={CollectionsOverviewContainer}
-			/>
-			{/* Dynamic nested route. Displays page depending on specific collection */}
-			<Route
-				path={`${match.path}/:collectionId`}
-				// Return HOC showing a spinner until all data is loaded from firebase
-				component={CollectionPageContainer}
-			/>
+			{/* Suspense - "await" equivalent with fallback component as it loads*/}
+			<Suspense fallback={<Spinner />}>
+				{/* Each lazy-loading import is essentially "async" so must be w/in "await" or Suspense*/}
+				<Route
+					exact
+					path={`${match.path}`}
+					// Return HOC showing a spinner until all data is loaded from firebase
+					component={CollectionsOverviewContainer}
+				/>
+				{/* Dynamic nested route. Displays page depending on specific collection */}
+				<Route
+					path={`${match.path}/:collectionId`}
+					// Return HOC showing a spinner until all data is loaded from firebase
+					component={CollectionPageContainer}
+				/>
+			</Suspense>
 		</div>
 	);
 };
