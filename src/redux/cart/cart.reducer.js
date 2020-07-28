@@ -1,6 +1,5 @@
-import { CartActionTypes } from "./cart.types";
-import { addItemToCart } from "./cart.utils";
-import { removeItemFromCart } from "./cart.utils";
+import CartActionTypes from "./cart.types";
+import { addItemToCart, removeItemFromCart } from "./cart.utils";
 
 // Initial state needed since we don't want dropdown showing to start
 const INITIAL_STATE = {

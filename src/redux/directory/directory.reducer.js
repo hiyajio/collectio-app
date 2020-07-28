@@ -1,5 +1,5 @@
 // Initial state needed since we don't want app to start without sections shown
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
 	sections: [
 		{
 			title: "premium items",

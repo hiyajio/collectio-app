@@ -17,7 +17,6 @@ previously in charge of async functionality 'fetchCollectionsStartAsync' */
 export function* fetchCollectionsAsync() {
 	/* we yield in order to cede control to redux-saga and have it resolve
 	which actions should fire first, which ones get cancelled by others, etc. */
-	yield console.log("I am fired");
 
 	// Since yields are equivalent to await, think of try-catch here as async
 	try {

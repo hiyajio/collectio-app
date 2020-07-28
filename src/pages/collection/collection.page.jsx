@@ -23,7 +23,7 @@ const CollectionItem = lazy(() =>
 );
 
 // Destructuring 'prop' into their specific counterpart for syntactic sugar
-const CollectionPage = ({ collection }) => {
+export const CollectionPage = ({ collection }) => {
 	// UNCOMMENT BELOW to test ErrorBoundary feature
 	// throw Error;
 
