@@ -10,7 +10,10 @@ e-Commerce web + mobile app project for makeshift client Collectio Comics for ND
 * __Styling__ - Hybrid between [Sass/SCSS](https://sass-lang.com/documentation) and CSS in JS using [styled-components](https://styled-components.com/docs)  
 * __API/s__ - Payment through [Stripe](https://stripe.com/docs/api)  
 * __Deployment__ - CI/CD and hosting through [Netlify](https://www.netlify.com/)  
+* __Testing__ - Unit and Integration tests through [Jest](https://jestjs.io/docs/en/getting-started) and Snapshot testing (including Redux functionality) through [Enzyme](https://enzymejs.github.io/enzyme/)  
 * __Mobile__ - Hybrid (iOS + Android) mobile app wrapper through [Capacitor](https://capacitorjs.com/docs/getting-started)  
+
+![web-screenshot](https://user-images.githubusercontent.com/50670255/88740516-63f3f800-d10b-11ea-9112-c27bbedcd4bb.png)
 
 ## Web Set Up
 
