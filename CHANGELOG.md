@@ -46,8 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Finish custom functions, class component use, and template functions
 - Firebase authentication and user storage through google oauth, email and password sign up/sign in
 
-[0.2.0]: https://github.com/lockjio/collectio-site/releases/tag/v0.2.0
-[0.3.0]: https://github.com/lockjio/collectio-site/compare/v0.2.0...v0.3.0
-[0.4.0]: https://github.com/lockjio/collectio-site/compare/v0.3.0...v0.4.0
-[0.5.0]: https://github.com/lockjio/collectio-site/compare/v0.4.0...v0.5.0
-[0.6.0]: https://github.com/lockjio/collectio-site/compare/v0.5.0...v0.6.0
+[0.2.0]: https://github.com/saejhi/collectio-site/releases/tag/v0.2.0
+[0.3.0]: https://github.com/saejhi/collectio-site/compare/v0.2.0...v0.3.0
+[0.4.0]: https://github.com/saejhi/collectio-site/compare/v0.3.0...v0.4.0
+[0.5.0]: https://github.com/saejhi/collectio-site/compare/v0.4.0...v0.5.0
+[0.6.0]: https://github.com/saejhi/collectio-site/compare/v0.5.0...v0.6.0
